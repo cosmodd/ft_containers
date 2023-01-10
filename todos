@@ -1,0 +1,176 @@
+Containers:
+	☐ ft::iterator_traits
+	☐ ft::reverse_iterator
+	☐ ft::enable_if
+	☐ ft::is_integral
+	☐ ft::equal
+	☐ ft::lexicographical_compare
+	☐ ft::pair
+	☐ ft::make_pair
+
+	Stack<T, Container = ft::vector<T>>:
+		☐ Uses ft::vector as default container
+		☐ compatible with other containers
+		Constructors:
+			✔ ft::stack::stack(const Container& cont = Container()); @done(23-01-10 16:14)
+			✔ ft::stack::stack(const ft::stack& other); @done(23-01-10 16:14)
+		Member types:
+			✔ Container	container_type; @done(23-01-10 16:14)
+			✔ Container::value_type			value_type; @done(23-01-10 16:14)
+			✔ Container::reference			reference; @done(23-01-10 16:14)
+			✔ Container::const_reference	const_reference; @done(23-01-10 16:14)
+			✔ Container::size_type			size_type; @done(23-01-10 16:14)
+			✔ protected	Container c; @done(23-01-10 16:14)
+		Member functions:
+			✔ ft::stack::operator=(const ft::stack& other); @done(23-01-10 16:14)
+			✔ ft::stack::empty(void) const; @done(23-01-10 16:14)
+			✔ ft::stack::size(void) const; @done(23-01-10 16:14)
+			✔ ft::stack::top(void); @done(23-01-10 16:14)
+			✔ ft::stack::top(void) const; @done(23-01-10 16:14)
+			✔ ft::stack::push(const value_type& value); @done(23-01-10 16:14)
+			✔ ft::stack::pop(void); @done(23-01-10 16:14)
+		Non-member functions:
+			☐ ft::stack::operator==(const ft::stack& lhs, const ft::stack& rhs);
+			☐ ft::stack::operator!=(const ft::stack& lhs, const ft::stack& rhs);
+			☐ ft::stack::operator<(const ft::stack& lhs, const ft::stack& rhs);
+			☐ ft::stack::operator<=(const ft::stack& lhs, const ft::stack& rhs);
+			☐ ft::stack::operator>(const ft::stack& lhs, const ft::stack& rhs);
+			☐ ft::stack::operator>=(const ft::stack& lhs, const ft::stack& rhs);
+
+	Vector<T, Allocator = std::allocator<T>>:
+		Constructors:
+			☐ ft::vector::vector(void);
+			☐ ft::vector::vector(const Allocator& alloc);
+			☐ explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator());
+			☐ template< class InputIt > vector( InputIt first, InputIt last, const Allocator& alloc = Allocator());
+			☐ ft::vector::vector(const ft::vector& other);
+		Member types:
+			☐ T	value_type;
+			☐ Allocator	allocator_type;
+			☐ T&	reference;
+			☐ const T&	const_reference;
+			☐ T*	pointer;
+			☐ const T*	const_pointer;
+			☐ std::ptrdiff_t	difference_type;
+			☐ std::size_t	size_type;
+			Iterators:
+				☐ ft::vector::iterator;
+				☐ ft::vector::const_iterator;
+				☐ ft::vector::reverse_iterator;
+				☐ ft::vector::const_reverse_iterator;
+		Member functions:
+			☐ ft::vector::operator=(const ft::vector& other);
+			☐ ft::vector::assign(size_type count, const T& value);
+			☐ template< class InputIt > ft::vector::assign(InputIt first, InputIt last);
+			☐ ft::vector::get_allocator(void) const;
+			☐ ft::vector::at(size_type pos);
+			☐ ft::vector::at(size_type pos) const;
+			☐ ft::vector::operator[](size_type pos);
+			☐ ft::vector::operator[](size_type pos) const;
+			☐ ft::vector::front(void);
+			☐ ft::vector::front(void) const;
+			☐ ft::vector::back(void);
+			☐ ft::vector::back(void) const;
+			☐ ft::vector::data(void) noexcept;
+			☐ ft::vector::data(void) const noexcept;
+			☐ ft::vector::begin(void) noexcept;
+			☐ ft::vector::begin(void) const noexcept;
+			☐ ft::vector::end(void) noexcept;
+			☐ ft::vector::end(void) const noexcept;
+			☐ ft::vector::rbegin(void) noexcept;
+			☐ ft::vector::rbegin(void) const noexcept;
+			☐ ft::vector::rend(void) noexcept;
+			☐ ft::vector::rend(void) const noexcept;
+			☐ ft::vector::empty(void) const noexcept;
+			☐ ft::vector::size(void) const noexcept;
+			☐ ft::vector::max_size(void) const noexcept;
+			☐ ft::vector::reserve(size_type new_cap);
+			☐ ft::vector::capacity(void) const noexcept;
+			☐ ft::vector::clear(void) noexcept;
+			☐ ft::vector::insert(iterator pos, const T& value);
+			☐ ft::vector::insert(iterator pos, size_type count, const T& value);
+			☐ template< class InputIt > ft::vector::insert(iterator pos, InputIt first, InputIt last);
+			☐ ft::vector::erase(iterator pos);
+			☐ ft::vector::erase(iterator first, iterator last);
+			☐ ft::vector::push_back(const T& value);
+			☐ ft::vector::pop_back(void);
+			☐ ft::vector::resize(size_type count, T val = T());
+			☐ ft::vector::swap(ft::vector& other);
+		Non-member functions:
+			☐ ft::vector::operator==(const ft::vector& lhs, const ft::vector& rhs);
+			☐ ft::vector::operator!=(const ft::vector& lhs, const ft::vector& rhs);
+			☐ ft::vector::operator<(const ft::vector& lhs, const ft::vector& rhs);
+			☐ ft::vector::operator<=(const ft::vector& lhs, const ft::vector& rhs);
+			☐ ft::vector::operator>(const ft::vector& lhs, const ft::vector& rhs);
+			☐ ft::vector::operator>=(const ft::vector& lhs, const ft::vector& rhs);
+			☐ ft::vector::swap(ft::vector& lhs, ft::vector& rhs);
+
+	Map<Key, T, Compare=std::less<Key>, Allocator = std::allocator<std::pair<const Key, T>>>:
+		Constructors:
+			☐ ft::map::map(void);
+			☐ ft::map::map(const Compare& comp, const Allocator& alloc = Allocator());
+			☐ template <class InputIterator> ft::map::map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
+			☐ ft::map::map(const ft::map& other);
+		Member types:
+			☐ Key	key_type;
+			☐ T	mapped_type;
+			☐ std::pair<const Key, T>	value_type;
+			☐ Compare	key_compare;
+			☐ Allocator	allocator_type;
+			☐ T&	mapped_type;
+			☐ const T&	mapped_type;
+			☐ std::pair<const Key, T>&	reference;
+			☐ const std::pair<const Key, T>&	const_reference;
+			☐ Allocator::pointer	pointer;
+			☐ Allocator::const_pointer	const_pointer;
+			☐ std::ptrdiff_t	difference_type;
+			☐ std::size_t	size_type;
+		Iterators:
+			☐ ft::map::iterator;
+			☐ ft::map::const_iterator;
+			☐ ft::map::reverse_iterator;
+			☐ ft::map::const_reverse_iterator;
+		Member functions:
+			☐ ft::map::operator=(const ft::map& other);
+			☐ ft::map::get_allocator(void) const;
+			☐ ft::map::at(const Key& key);
+			☐ ft::map::at(const Key& key) const;
+			☐ ft::map::operator[](const Key& key);
+			☐ ft::map::begin(void);
+			☐ ft::map::begin(void) const;
+			☐ ft::map::end(void);
+			☐ ft::map::end(void) const;
+			☐ ft::map::rbegin(void);
+			☐ ft::map::rbegin(void) const;
+			☐ ft::map::rend(void);
+			☐ ft::map::rend(void) const;
+			☐ ft::map::empty(void) const;
+			☐ ft::map::size(void) const;
+			☐ ft::map::max_size(void) const;
+			☐ ft::map::clear(void);
+			☐ ft::map::insert(const value_type& value);
+			☐ ft::map::insert(iterator hint, const value_type& value);
+			☐ template <class InputIterator> ft::map::insert(InputIterator first, InputIterator last);
+			☐ ft::map::erase(iterator pos);
+			☐ ft::map::erase(const Key& key);
+			☐ ft::map::erase(iterator first, iterator last);
+			☐ ft::map::swap(ft::map& other);
+			☐ ft::map::count(const Key& key) const;
+			☐ ft::map::find(const Key& key);
+			☐ ft::map::find(const Key& key) const;
+			☐ ft::map::lower_bound(const Key& key);
+			☐ ft::map::lower_bound(const Key& key) const;
+			☐ ft::map::upper_bound(const Key& key);
+			☐ ft::map::upper_bound(const Key& key) const;
+			☐ ft::map::equal_range(const Key& key);
+			☐ ft::map::equal_range(const Key& key) const;
+			☐ ft::map::key_comp(void) const;
+			☐ ft::map::value_comp(void) const;
+		Non-member functions:
+			☐ ft::map::operator==(const ft::map& lhs, const ft::map& rhs);
+			☐ ft::map::operator!=(const ft::map& lhs, const ft::map& rhs);
+			☐ ft::map::operator<(const ft::map& lhs, const ft::map& rhs);
+			☐ ft::map::operator<=(const ft::map& lhs, const ft::map& rhs);
+			☐ ft::map::operator>(const ft::map& lhs, const ft::map& rhs);
+			☐ ft::map::operator>=(const ft::map& lhs, const ft::map& rhs);
+			☐ template <class Key, class T, class Compare, class Allocator> ft::map::swap(ft::map<Key, T, Compare, Allocator>& lhs, ft::map<Key, T, Compare, Allocator>& rhs);
