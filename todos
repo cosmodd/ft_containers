@@ -1,7 +1,7 @@
 Containers:
-	☐ ft::iterator_traits
+	✔ ft::iterator_traits @done(23-01-12 13:14)
 	☐ ft::reverse_iterator
-	☐ ft::enable_if
+	✔ ft::enable_if @done(23-01-12 13:14)
 	☐ ft::is_integral
 	☐ ft::equal
 	☐ ft::lexicographical_compare
@@ -10,17 +10,17 @@ Containers:
 
 	Stack<T, Container = ft::vector<T>>:
 		☐ Uses ft::vector as default container
-		☐ compatible with other containers
+		✔ compatible with other containers @done(23-01-11 12:38)
 		Constructors:
 			✔ ft::stack::stack(const Container& cont = Container()); @done(23-01-10 16:14)
 			✔ ft::stack::stack(const ft::stack& other); @done(23-01-10 16:14)
 		Member types:
-			✔ Container	container_type; @done(23-01-10 16:14)
+			✔ Container						container_type; @done(23-01-10 16:14)
 			✔ Container::value_type			value_type; @done(23-01-10 16:14)
 			✔ Container::reference			reference; @done(23-01-10 16:14)
 			✔ Container::const_reference	const_reference; @done(23-01-10 16:14)
 			✔ Container::size_type			size_type; @done(23-01-10 16:14)
-			✔ protected	Container c; @done(23-01-10 16:14)
+			✔ protected Container			c; @done(23-01-10 16:14)
 		Member functions:
 			✔ ft::stack::operator=(const ft::stack& other); @done(23-01-10 16:14)
 			✔ ft::stack::empty(void) const; @done(23-01-10 16:14)
@@ -30,29 +30,29 @@ Containers:
 			✔ ft::stack::push(const value_type& value); @done(23-01-10 16:14)
 			✔ ft::stack::pop(void); @done(23-01-10 16:14)
 		Non-member functions:
-			☐ ft::stack::operator==(const ft::stack& lhs, const ft::stack& rhs);
-			☐ ft::stack::operator!=(const ft::stack& lhs, const ft::stack& rhs);
-			☐ ft::stack::operator<(const ft::stack& lhs, const ft::stack& rhs);
-			☐ ft::stack::operator<=(const ft::stack& lhs, const ft::stack& rhs);
-			☐ ft::stack::operator>(const ft::stack& lhs, const ft::stack& rhs);
-			☐ ft::stack::operator>=(const ft::stack& lhs, const ft::stack& rhs);
+			✔ ft::stack::operator==(const ft::stack& lhs, const ft::stack& rhs); @done(23-01-11 12:38)
+			✔ ft::stack::operator!=(const ft::stack& lhs, const ft::stack& rhs); @done(23-01-11 12:38)
+			✔ ft::stack::operator<(const ft::stack& lhs, const ft::stack& rhs); @done(23-01-11 12:38)
+			✔ ft::stack::operator<=(const ft::stack& lhs, const ft::stack& rhs); @done(23-01-11 12:38)
+			✔ ft::stack::operator>(const ft::stack& lhs, const ft::stack& rhs); @done(23-01-11 12:38)
+			✔ ft::stack::operator>=(const ft::stack& lhs, const ft::stack& rhs); @done(23-01-11 12:38)
 
 	Vector<T, Allocator = std::allocator<T>>:
 		Constructors:
 			☐ ft::vector::vector(void);
 			☐ ft::vector::vector(const Allocator& alloc);
+			☐ ft::vector::vector(const ft::vector& other);
 			☐ explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator());
 			☐ template< class InputIt > vector( InputIt first, InputIt last, const Allocator& alloc = Allocator());
-			☐ ft::vector::vector(const ft::vector& other);
 		Member types:
-			☐ T	value_type;
-			☐ Allocator	allocator_type;
-			☐ T&	reference;
-			☐ const T&	const_reference;
-			☐ T*	pointer;
-			☐ const T*	const_pointer;
+			☐ T					value_type;
+			☐ Allocator			allocator_type;
+			☐ T&				reference;
+			☐ const T&			const_reference;
+			☐ T*				pointer;
+			☐ const T*			const_pointer;
 			☐ std::ptrdiff_t	difference_type;
-			☐ std::size_t	size_type;
+			☐ std::size_t		size_type;
 			Iterators:
 				☐ ft::vector::iterator;
 				☐ ft::vector::const_iterator;

@@ -2,47 +2,48 @@
 #  SOURCES                                                                     #
 ################################################################################
 
-SRCS	=	src/main.cpp \
+SRCS	:=	src/main.cpp \
 
-OBJS	=	$(SRCS:.cpp=.o)
+OBJS	:=	$(SRCS:.cpp=.o)
 
 ################################################################################
 #  CONSTANTS                                                                   #
 ################################################################################
 
-CXX			=	c++
-CXXFLAGS	=	-Wall -Wextra -Werror -std=c++98
+CXX			:=	c++
+CXXFLAGS	:=	-Wall -Wextra -Werror
+CXXFLAGS	+=	-std=c++98
 
-NAME		=	containers
+NAME		:=	containers
 
-INCLUDES	=	-Iinclude
-LIBS		=
+INCLUDES	:=	-Iinclude
+LIBS		:=
 
 ################################################################################
 #  MAKEFILE VISUALS                                                            #
 ################################################################################
 
-SHELL	=	zsh
-REDO	=	\r\e[2K
+SHELL	:=	zsh
+REDO	:=	\r\e[2K
 
 # COLORS
-BG_RD	=	\033[48;2;237;66;69m
-BG_GR	=	\033[48;2;0;194;60m
-BG_BL	=	\033[48;2;88;101;242m
-FG_WH	=	\033[38;2;255;255;255m
-FG_BK	=	\033[38;2;0;0;0m
-BOLD	=	\033[1m
-NOCOL	=	\033[0m
+BG_RD	:=	\033[48;2;237;66;69m
+BG_GR	:=	\033[48;2;0;194;60m
+BG_BL	:=	\033[48;2;88;101;242m
+FG_WH	:=	\033[38;2;255;255;255m
+FG_BK	:=	\033[38;2;0;0;0m
+BOLD	:=	\033[1m
+NOCOL	:=	\033[0m
 
 # CHARS
-TICK	=	✓
-PEN		=	✐
-CROSS	=	𐄂
+TICK	:=	✓
+PEN		:=	✐
+CROSS	:=	𐄂
 
 # MESSAGES
-VALID	=	$(BOLD)$(FG_WH)$(BG_GR) $(TICK)
-INFO	=	$(BOLD)$(FG_WH)$(BG_BL) $(PEN)
-DEL		=	$(BOLD)$(FG_WH)$(BG_RD) $(CROSS)
+VALID	:=	$(BOLD)$(FG_WH)$(BG_GR) $(TICK)
+INFO	:=	$(BOLD)$(FG_WH)$(BG_BL) $(PEN)
+DEL		:=	$(BOLD)$(FG_WH)$(BG_RD) $(CROSS)
 
 ################################################################################
 #  TARGETS / RULES                                                             #
