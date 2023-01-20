@@ -18,10 +18,10 @@
 #ifdef FT_STACK
 
 template <class T, class Container>
-static void	printStackInformation(ft::stack<T, Container> &stack)
+static void printStackInformation(ft::stack<T, Container> &stack)
 {
-	ft::stack<T, Container>	copy = stack;
-	int						index = 0;
+	ft::stack<T, Container> copy = stack;
+	int index = 0;
 
 	std::cout << std::endl;
 	std::cout << "Is empty: " << emojiBoolean(stack.empty()) << std::endl;
@@ -39,10 +39,10 @@ static void	printStackInformation(ft::stack<T, Container> &stack)
 }
 
 template <class T, class Container>
-static void	printStackInformation(std::stack<T, Container> &stack)
+static void printStackInformation(std::stack<T, Container> &stack)
 {
-	std::stack<T, Container>	copy = stack;
-	int							index = 0;
+	std::stack<T, Container> copy = stack;
+	int index = 0;
 
 	std::cout << std::endl;
 	std::cout << "Is empty: " << emojiBoolean(stack.empty()) << std::endl;
@@ -60,13 +60,12 @@ static void	printStackInformation(std::stack<T, Container> &stack)
 }
 
 template <class S>
-void	test_stack(S &stack)
+void test_stack(S &stack)
 {
-	S															other;
-	std::chrono::time_point<std::chrono::high_resolution_clock>	start;
-	std::chrono::time_point<std::chrono::high_resolution_clock>	end;
-	std::chrono::duration<double, std::milli>					time;
-
+	S other;
+	std::chrono::time_point<std::chrono::high_resolution_clock> start;
+	std::chrono::time_point<std::chrono::high_resolution_clock> end;
+	std::chrono::duration<double, std::milli> time;
 
 	printStackInformation(stack);
 	start = std::chrono::high_resolution_clock::now();
@@ -90,10 +89,10 @@ void	test_stack(S &stack)
 	std::cout << "(stack >= other) = " << emojiBoolean(stack >= other, true) << std::endl;
 }
 
-void	test_stacks()
+void test_stacks()
 {
-	ft::stack<int>	stack;
-	std::stack<int>	stdstack;
+	ft::stack<int> stack;
+	std::stack<int> stdstack;
 
 	std::cout << "\e[94m ft::Stack \e[0m" << std::endl;
 	test_stack(stack);
@@ -106,7 +105,7 @@ void	test_stacks()
 #ifdef FT_VECTOR
 
 template <class Vector>
-static void	printVectorInformations(Vector &vec)
+static void printVectorInformations(Vector &vec)
 {
 	std::cout << std::endl;
 	std::cout << "Empty: " << emojiBoolean(vec.empty()) << std::endl;
@@ -121,10 +120,10 @@ static void	printVectorInformations(Vector &vec)
 	std::cout << std::endl;
 }
 
-void	test_vectors()
+void test_vectors()
 {
-	ft::vector<int>		vector;
-	std::vector<int>	stdvector;
+	ft::vector<int> vector;
+	std::vector<int> stdvector;
 
 	std::cout << "\e[94m ft::Vector \e[0m" << std::endl;
 	printVectorInformations(vector);
@@ -134,27 +133,41 @@ void	test_vectors()
 
 #endif
 
-int	main(void)
+template <class T>
+static void printVector(std::vector<T> vec, std::string name)
+{
+	if (!name.empty())
+		std::cout << name << ": ";
+	for (int i = 0; i < (int)vec.size(); i++)
+	{
+		if (i > 0)
+			std::cout << ", ";
+		std::cout << vec[i];
+	}
+	std::cout << std::endl;
+}
+
+int main(void)
 {
 	std::vector<int>	list;
+	std::vector<int>	list2;
 
 	for (int i = 0; i < 5; i++)
+	{
 		list.push_back(i);
+		list2.push_back(i);
+	}
 
-	std::cout << "Original: ";
-	for (int i = 0; i < (int)list.size(); i++)
-		std::cout << list[i] << " ";
-	std::cout << std::endl;
+	printVector(list, " ft");
+	printVector(list2, "std");
 
 	ft::reverse_iterator<std::vector<int>::iterator>	begin(list.end());
 	ft::reverse_iterator<std::vector<int>::iterator>	end(list.begin());
 
 	std::reverse(begin, end);
 
-	std::cout << "Reversed: ";
-	for (int i = 0; i < (int)list.size(); i++)
-		std::cout << list[i] << " ";
-	std::cout << std::endl;
+	printVector(list, " ft");
+	printVector(list2, "std");
 
 	return (EXIT_SUCCESS);
 }
