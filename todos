@@ -1,6 +1,6 @@
 Containers:
 	✔ ft::iterator_traits @done(23-01-12 13:14)
-	☐ ft::reverse_iterator
+	✔ ft::reverse_iterator @done(23-01-23 10:02)
 	✔ ft::enable_if @done(23-01-12 13:14)
 	☐ ft::is_integral
 	☐ ft::equal
@@ -39,63 +39,68 @@ Containers:
 
 	Vector<T, Allocator = std::allocator<T>>:
 		Constructors:
-			☐ ft::vector::vector(void);
-			☐ ft::vector::vector(const Allocator& alloc);
-			☐ ft::vector::vector(const ft::vector& other);
-			☐ explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator());
-			☐ template< class InputIt > vector( InputIt first, InputIt last, const Allocator& alloc = Allocator());
+			✔ ft::vector::vector(void); @done(23-01-23 16:27)
+			✔ ft::vector::vector(const Allocator& alloc); @done(23-01-23 16:27)
+			✔ ft::vector::vector(const ft::vector& other); @done(23-01-23 16:27)
+			✔ explicit vector( size_type count, const T& value = T(), const Allocator& alloc = Allocator()); @done(23-01-23 16:27)
+			✔ template< class InputIt > vector( InputIt first, InputIt last, const Allocator& alloc = Allocator()); @done(23-01-23 16:27)
 		Member types:
-			☐ T					value_type;
-			☐ Allocator			allocator_type;
-			☐ T&				reference;
-			☐ const T&			const_reference;
-			☐ T*				pointer;
-			☐ const T*			const_pointer;
-			☐ std::ptrdiff_t	difference_type;
-			☐ std::size_t		size_type;
+			✔ T							value_type; @done(23-01-23 10:07)
+			✔ Allocator					allocator_type; @done(23-01-23 10:07)
+			✔ T&						reference; @done(23-01-23 10:07)
+			✔ const T&					const_reference; @done(23-01-23 10:07)
+			✔ Allocator::pointer		pointer; @done(23-01-23 10:22)
+			✔ Allocator::const_pointer	const_pointer; @done(23-01-23 10:22)
+			✔ std::ptrdiff_t			difference_type; @done(23-01-23 10:07)
+			✔ std::size_t				size_type; @done(23-01-23 10:07)
 			Iterators:
-				☐ ft::vector::iterator;
-				☐ ft::vector::const_iterator;
-				☐ ft::vector::reverse_iterator;
-				☐ ft::vector::const_reverse_iterator;
+				✔ ft::vector::iterator; @done(23-01-23 11:03)
+				✔ ft::vector::const_iterator; @done(23-01-23 11:03)
+				✔ ft::vector::reverse_iterator; @done(23-01-23 10:24)
+				✔ ft::vector::const_reverse_iterator; @done(23-01-23 10:24)
 		Member functions:
 			☐ ft::vector::operator=(const ft::vector& other);
-			☐ ft::vector::assign(size_type count, const T& value);
-			☐ template< class InputIt > ft::vector::assign(InputIt first, InputIt last);
+			✔ ft::vector::assign(size_type count, const T& value); @done(23-01-23 16:27)
+			✔ template< class InputIt > ft::vector::assign(InputIt first, InputIt last); @done(23-01-23 16:27)
 			☐ ft::vector::get_allocator(void) const;
-			☐ ft::vector::at(size_type pos);
-			☐ ft::vector::at(size_type pos) const;
-			☐ ft::vector::operator[](size_type pos);
-			☐ ft::vector::operator[](size_type pos) const;
-			☐ ft::vector::front(void);
-			☐ ft::vector::front(void) const;
-			☐ ft::vector::back(void);
-			☐ ft::vector::back(void) const;
-			☐ ft::vector::data(void) noexcept;
-			☐ ft::vector::data(void) const noexcept;
-			☐ ft::vector::begin(void) noexcept;
-			☐ ft::vector::begin(void) const noexcept;
-			☐ ft::vector::end(void) noexcept;
-			☐ ft::vector::end(void) const noexcept;
-			☐ ft::vector::rbegin(void) noexcept;
-			☐ ft::vector::rbegin(void) const noexcept;
-			☐ ft::vector::rend(void) noexcept;
-			☐ ft::vector::rend(void) const noexcept;
-			☐ ft::vector::empty(void) const noexcept;
-			☐ ft::vector::size(void) const noexcept;
-			☐ ft::vector::max_size(void) const noexcept;
-			☐ ft::vector::reserve(size_type new_cap);
-			☐ ft::vector::capacity(void) const noexcept;
-			☐ ft::vector::clear(void) noexcept;
-			☐ ft::vector::insert(iterator pos, const T& value);
-			☐ ft::vector::insert(iterator pos, size_type count, const T& value);
-			☐ template< class InputIt > ft::vector::insert(iterator pos, InputIt first, InputIt last);
-			☐ ft::vector::erase(iterator pos);
-			☐ ft::vector::erase(iterator first, iterator last);
-			☐ ft::vector::push_back(const T& value);
-			☐ ft::vector::pop_back(void);
-			☐ ft::vector::resize(size_type count, T val = T());
-			☐ ft::vector::swap(ft::vector& other);
+			Element access:
+				☐ ft::vector::at(size_type pos);
+				☐ ft::vector::at(size_type pos) const;
+				☐ ft::vector::operator[](size_type pos);
+				☐ ft::vector::operator[](size_type pos) const;
+				☐ ft::vector::front(void);
+				☐ ft::vector::front(void) const;
+				☐ ft::vector::back(void);
+				☐ ft::vector::back(void) const;
+				☐ ft::vector::data(void);
+				☐ ft::vector::data(void) const;
+			Iterators:
+				✔ ft::vector::begin(void); @done(23-01-23 13:11)
+				✔ ft::vector::begin(void) const; @done(23-01-23 13:11)
+				✔ ft::vector::end(void); @done(23-01-23 13:11)
+				✔ ft::vector::end(void) const; @done(23-01-23 13:11)
+				✔ ft::vector::rbegin(void); @done(23-01-23 13:11)
+				✔ ft::vector::rbegin(void) const; @done(23-01-23 13:11)
+				✔ ft::vector::rend(void); @done(23-01-23 13:11)
+				✔ ft::vector::rend(void) const; @done(23-01-23 13:11)
+			Capacity:
+				✔ ft::vector::empty(void) const; @done(23-01-23 14:23)
+				✔ ft::vector::size(void) const; @done(23-01-23 14:23)
+				✔ ft::vector::max_size(void) const; @done(23-01-23 14:23)
+				☐ ft::vector::reserve(size_type new_cap);
+				✔ ft::vector::capacity(void) const; @done(23-01-23 14:23)
+			Modifiers:
+				✔ ft::vector::clear(void); @done(23-01-23 14:30)
+				☐ ft::vector::insert(iterator pos, const T& value);
+				☐ ft::vector::insert(iterator pos, size_type count, const T& value);
+				☐ template< class InputIt > ft::vector::insert(iterator pos, InputIt first, InputIt last);
+				☐ ft::vector::erase(iterator pos);
+				☐ ft::vector::erase(iterator first, iterator last);
+				☐ ft::vector::push_back(const T& value);
+				☐ ft::vector::pop_back(void);
+				☐ ft::vector::resize(size_type count, T val = T());
+				☐ ft::vector::swap(ft::vector& other);
+
 		Non-member functions:
 			☐ ft::vector::operator==(const ft::vector& lhs, const ft::vector& rhs);
 			☐ ft::vector::operator!=(const ft::vector& lhs, const ft::vector& rhs);

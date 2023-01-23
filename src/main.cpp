@@ -1,5 +1,5 @@
 // #include "stack.hpp"
-// #include "vector.hpp"
+#include "vector.hpp"
 #include "iterators.hpp"
 
 #include <iostream>
@@ -8,12 +8,14 @@
 #include <vector>
 #include <chrono>
 
-// static std::string	emojiBoolean(bool value, bool verbose = false)
-// {
-// 	if (verbose)
-// 		return (value ? "✅ Yes" : "❌ No");
-// 	return (value ? "✅" : "❌");
-// }
+#if defined(FT_STACK) || defined(FT_VECTOR)
+static std::string	emojiBoolean(bool value, bool verbose = false)
+{
+	if (verbose)
+		return (value ? "✅ Yes" : "❌ No");
+	return (value ? "✅" : "❌");
+}
+#endif
 
 #ifdef FT_STACK
 
@@ -113,9 +115,9 @@ static void printVectorInformations(Vector &vec)
 	std::cout << "Content: ";
 	for (int i = 0; i < vec.size(); i++)
 	{
-		if (index > 0)
+		if (i > 0)
 			std::cout << ", ";
-		std::cout << copy.top();
+		std::cout << vec[i];
 	}
 	std::cout << std::endl;
 }
@@ -147,6 +149,20 @@ static void printVector(std::vector<T> vec, std::string name)
 	std::cout << std::endl;
 }
 
+template < class Iterator >
+static void	printRange(Iterator first, Iterator last, std::string name)
+{
+	if (!name.empty())
+		std::cout << name << ": ";
+	while (first != last)
+	{
+		std::cout << *first;
+		if (++first != last)
+			std::cout << ", ";
+	}
+	std::cout << std::endl;
+}
+
 template <class T>
 static void testBooleans(std::string name, T a, T b)
 {
@@ -161,25 +177,15 @@ static void testBooleans(std::string name, T a, T b)
 
 int main(void)
 {
-	std::vector<int>	list;
-	std::vector<int>	list2;
+	static const int	size = 10;
 
-	for (int i = 0; i < 5; i++)
-	{
-		list.push_back(i);
-		list2.push_back(i);
-	}
+	std::vector<int>	range;
+	for (int i = 0; i < size; i++) range.push_back(i);
 
-	printVector(list, " ft");
-	printVector(list2, "std");
+	ft::vector<int>		a((size_t) size, 100);
+	ft::vector<int>		b(range.begin(), range.end());
 
-	ft::reverse_iterator<std::vector<int>::iterator>	begin(list.end());
-	ft::reverse_iterator<std::vector<int>::iterator>	end(list.begin());
-
-	std::reverse(begin, end);
-
-	printVector(list, " ft");
-	printVector(list2, "std");
-
+	std::cout << "size = " << a.size() << "; "; printRange(a.begin(), a.end(), "a");
+	std::cout << "size = " << b.size() << "; "; printRange(b.begin(), b.end(), "b");
 	return (EXIT_SUCCESS);
 }

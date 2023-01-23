@@ -66,6 +66,10 @@ debug:
 	@echo '$(INFO) Debugging project ! $(NOCOL)'
 	@make -sC ./ CXXFLAGS="${CXXFLAGS} -g -fsanitize=address" re
 
+noflags:
+	@echo '$(INFO) Compiling without flags ! $(NOCOL)'
+	@make -sC ./ CXXFLAGS="-std=c++98" re
+
 clean:
 	@rm -f $(OBJS)
 	@echo '$(DEL) Removed $(words $(OBJS)) object files $(NOCOL)'
