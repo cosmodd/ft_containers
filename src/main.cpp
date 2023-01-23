@@ -147,6 +147,18 @@ static void printVector(std::vector<T> vec, std::string name)
 	std::cout << std::endl;
 }
 
+template <class T>
+static void testBooleans(std::string name, T a, T b)
+{
+	std::cout << name << ": " << std::endl;
+	std::cout << "a == b: " << emojiBoolean(a == b) << std::endl;
+	std::cout << "a != b: " << emojiBoolean(a != b) << std::endl;
+	std::cout << "a < b: " << emojiBoolean(a < b) << std::endl;
+	std::cout << "a <= b: " << emojiBoolean(a <= b) << std::endl;
+	std::cout << "a > b: " << emojiBoolean(a > b) << std::endl;
+	std::cout << "a >= b: " << emojiBoolean(a >= b) << std::endl;
+}
+
 int main(void)
 {
 	std::vector<int>	list;
