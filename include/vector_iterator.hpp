@@ -40,9 +40,21 @@ namespace ft
 				_ptr(other._ptr)
 			{}
 
+			// --- Conversion to const_iterator --- //
+			// This is a conversion operator which allows the iterator to be
+			// converted to a const_iterator. This is needed for the const
+			// version of the vector.
+			// e.g.: vector<int>::const_iterator it = vec.begin();
+			operator vector_iterator<const value_type>() const
+			{
+				return (vector_iterator<const value_type>(_ptr));
+			}
+
+			// --- Destructor --- //
 			~vector_iterator()
 			{}
 
+			// --- Assignment --- //
 			vector_iterator &operator=(const vector_iterator &other)
 			{
 				_ptr = other._ptr;
