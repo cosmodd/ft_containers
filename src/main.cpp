@@ -1,18 +1,36 @@
 // #include "stack.hpp"
 #include "vector.hpp"
 #include "iterators.hpp"
+#include "is_integral.hpp"
+#include "enable_if.hpp"
 
 #include <iostream>
+#include <iomanip>
 #include <list>
 #include <stack>
 #include <vector>
 #include <chrono>
+#include <string>
+#include <typeinfo>
+
+// -------------------------------------------------------------------------- //
+//  Structs                                                                   //
+// -------------------------------------------------------------------------- //
+template <class T>
+struct test_integral
+{
+	typedef typename std::is_integral<T>::type stdi;
+	typedef typename ft::is_integral<T>::type fti;
+
+	static const bool value = stdi::value == fti::value;
+	operator bool() const { return value; }
+};
 
 #if defined(FT_STACK) || defined(FT_VECTOR)
 static std::string	emojiBoolean(bool value, bool verbose = false)
 {
 	if (verbose)
-		return (value ? "✅ Yes" : "❌ No");
+		return (value ? "\e[42m ✅ Yes \e[0m" : "\e[41m ❌ No  \e[0m");
 	return (value ? "✅" : "❌");
 }
 #endif
@@ -149,6 +167,30 @@ static void printVector(std::vector<T> vec, std::string name)
 	std::cout << std::endl;
 }
 
+
+/**
+ * 🏷 ft::vector
+ * 📏 Size: 0
+ * 🛢 Capacity: 0
+ * 📦 Content: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+ */
+template <class T>
+static void printVector(ft::vector<T> vec, std::string name)
+{
+	if (!name.empty())
+		std::cout << "🏷  " << name << std::endl;
+	std::cout << "📏 Size: " << vec.size() << std::endl;
+	std::cout << "🛢  Capacity: " << vec.capacity() << std::endl;
+	std::cout << "📦 Content: ";
+	for (int i = 0; i < (int)vec.size(); i++)
+	{
+		if (i > 0)
+			std::cout << ", ";
+		std::cout << vec[i];
+	}
+	std::cout << std::endl;
+}
+
 template < class Iterator >
 static void	printRange(Iterator first, Iterator last, std::string name)
 {
@@ -175,6 +217,25 @@ static void testBooleans(std::string name, T a, T b)
 	std::cout << "a >= b: " << emojiBoolean(a >= b) << std::endl;
 }
 
+static void	testIntegrals()
+{
+	std::cout << std::setw(25) << "T<int> = " << emojiBoolean(ft::is_integral<int>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<char> = " << emojiBoolean(ft::is_integral<char>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<float> = " << emojiBoolean(ft::is_integral<float>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<double> = " << emojiBoolean(ft::is_integral<double>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<long> = " << emojiBoolean(ft::is_integral<long>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<long long> = " << emojiBoolean(ft::is_integral<long long>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<short> = " << emojiBoolean(ft::is_integral<short>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<unsigned int> = " << emojiBoolean(ft::is_integral<unsigned int>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<unsigned char> = " << emojiBoolean(ft::is_integral<unsigned char>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<unsigned long> = " << emojiBoolean(ft::is_integral<unsigned long>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<unsigned long long> = " << emojiBoolean(ft::is_integral<unsigned long long>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<unsigned short> = " << emojiBoolean(ft::is_integral<unsigned short>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<bool> = " << emojiBoolean(ft::is_integral<bool>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<std::string> = " << emojiBoolean(ft::is_integral<std::string>::value, true) << std::endl;
+	std::cout << std::setw(25) << "T<std::vector<int>> = " << emojiBoolean(ft::is_integral<std::vector<int> >::value, true) << std::endl;
+}
+
 int main(void)
 {
 	static const int	size = 10;
@@ -182,10 +243,9 @@ int main(void)
 	std::vector<int>	range;
 	for (int i = 0; i < size; i++) range.push_back(i);
 
-	ft::vector<int>		a((size_t) size, 100);
-	ft::vector<int>		b(range.begin(), range.end());
+	ft::vector<int>			ft_vector(range.begin(), range.end());
 
-	std::cout << "size = " << a.size() << "; "; printRange(a.begin(), a.end(), "a");
-	std::cout << "size = " << b.size() << "; "; printRange(b.begin(), b.end(), "b");
+	ft::vector<int>::const_iterator	begin = ft_vector.begin();
+	ft::vector<int>::const_iterator	end = ft_vector.end();
 	return (EXIT_SUCCESS);
 }
