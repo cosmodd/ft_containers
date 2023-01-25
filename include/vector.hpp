@@ -9,6 +9,8 @@
 
 #include "iterators.hpp"
 #include "vector_iterator.hpp"
+#include "enable_if.hpp"
+#include "is_integral.hpp"
 
 namespace ft
 {
@@ -35,8 +37,8 @@ namespace ft
 			// iterator is templated on the type T, which must be a class. The
 			// iterator is a random access iterator, so it has operators for
 			// addition, subtraction, and comparison.
-			typedef vector_iterator<T>						iterator;
-			typedef vector_iterator<const T>				const_iterator;
+			typedef vector_iterator<value_type>				iterator;
+			typedef vector_iterator<const value_type>		const_iterator;
 			typedef ft::reverse_iterator<iterator>			reverse_iterator;
 			typedef ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 
@@ -56,32 +58,12 @@ namespace ft
 			// -------------------------------------------------------------- //
 			//  Private member functions                                      //
 			// -------------------------------------------------------------- //
-			void	_reallocate(size_type new_capacity)
-			{
-				pointer	prev_start = _start;
-
-				_start = _alloc.allocate(new_capacity);
-				if (prev_start != nullptr)
-				{
-					for (int i = 0; i < new_capacity && i < _size; i++)
-						_start[i] = prev_start[i];
-					_alloc.deallocate(prev_start, _capacity);
-				}
-
-				_capacity = new_capacity;
-				_size = std::min(_size, _capacity);
-			}
-
-			void	_update_pointers(void)
-			{
-				_end = _start + _size;
-				_end_of_storage = _start + _capacity;
-			}
 
 		public:
 			// -------------------------------------------------------------- //
 			//  Constructors/Destructors + copying                            //
 			// -------------------------------------------------------------- //
+			// --- Default constructor --- //
 			vector(void):
 				_alloc(Allocator()),
 				_size(0),
@@ -91,6 +73,7 @@ namespace ft
 				_end_of_storage(nullptr)
 			{}
 
+			// --- Constructor with allocator --- //
 			explicit vector(const allocator_type &alloc):
 				_alloc(alloc),
 				_size(0),
@@ -100,19 +83,24 @@ namespace ft
 				_end_of_storage(nullptr)
 			{}
 
-			explicit vector( size_type count, const value_type& value = T(), const allocator_type& alloc = Allocator() ):
+			// --- Constructor with count and value --- //
+			explicit vector( size_type count, const value_type& value = value_type(), const allocator_type& alloc = Allocator() ):
 				_alloc(alloc),
 				_size(count),
-				_capacity(count),
-				_start(_alloc.allocate(count)),
+				_capacity(count * 2),
+				_start(_alloc.allocate(count * 2)),
 				_end(_start + count),
-				_end_of_storage(_start + count)
+				_end_of_storage(_start + _capacity)
 			{
 				assign(count, value);
 			}
 
+			// --- Constructor from iterators --- //
+			// This constructor is only enabled if the type InputIt is not an
+			// integral type. This is done to prevent the compiler from
+			// confusing this constructor with the one above.
 			template < class InputIt >
-			vector( InputIt first, InputIt last, const allocator_type& alloc = Allocator()):
+			vector( InputIt first, InputIt last, const allocator_type& alloc = Allocator(), typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0):
 				_alloc(alloc),
 				_size(0),
 				_capacity(0),
@@ -148,27 +136,27 @@ namespace ft
 			// -------------------------------------------------------------- //
 			vector	&operator=(const vector& lhs)
 			{
-				// TODO: implement
+				(void) lhs;
 				return (*this);
 			}
 
-			void	assign( size_type count, const T& value )
+			void	assign( size_type count, const value_type& value )
 			{
-				_reallocate(count * 2);
+				reserve(count * 2);
 				_size = count;
-				_update_pointers();
+				_end = _start + _size;
 				for (int i = 0; i < count; i++)
-					_start[i] = value;
+					_alloc.construct(_start + i, value);
 			}
 
 			template < class InputIt >
 			void	assign( InputIt first, InputIt last )
 			{
-				_reallocate((last - first) * 2);
+				reserve((last - first) * 2);
 				_size = last - first;
-				_update_pointers();
-				for (int i = 0; i < _size; i++)
-					_start[i] = first[i];
+				_end = _start + _size;
+				for (int i = 0; first != last; ++first, ++i)
+					_alloc.construct(_start + i, *first);
 			}
 
 			// --- Element access --- //
@@ -236,7 +224,19 @@ namespace ft
 
 			void	reserve(size_type new_cap)
 			{
-				// TODO: implement
+				if (new_cap <= _capacity)
+					return ;
+
+				pointer	new_start = _alloc.allocate(new_cap);
+				for (size_type i = 0; i < _size; ++i)
+				{
+					_alloc.construct(new_start + i, _start[i]);
+					_alloc.destroy(_start + i);
+				}
+				_alloc.deallocate(_start, _capacity);
+				_start = new_start;
+				_capacity = new_cap;
+				_end_of_storage = _start + _capacity;
 			}
 
 			size_type	capacity(void) const
@@ -255,7 +255,7 @@ namespace ft
 				for (size_type i = 0; i < _size; ++i)
 					_alloc.destroy(_start + i);
 				_size = 0;
-				_update_pointers();
+				_end = _start;
 			}
 	};
 
