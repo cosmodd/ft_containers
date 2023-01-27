@@ -6,6 +6,7 @@
 
 #include <memory>
 #include <cmath>
+#include <algorithm>
 
 #include "iterators.hpp"
 #include "vector_iterator.hpp"
@@ -58,6 +59,26 @@ namespace ft
 			// -------------------------------------------------------------- //
 			//  Private member functions                                      //
 			// -------------------------------------------------------------- //
+			void	move_right(iterator pos, size_type n)
+			{
+				if (n == 0)
+					return ;
+
+				size_type index = pos - _start;
+
+				if (_size + n > _capacity)
+					reserve(_size + n);
+
+				// Move the elements to the right
+				for (size_type i = _size; i > index && i > 0; i--)
+					_start[i + n - 1] = _start[i - 1];
+
+				// Update the end pointer
+				_end += n;
+
+				// Update the size
+				_size += n;
+			}
 
 		public:
 			// -------------------------------------------------------------- //
@@ -87,8 +108,8 @@ namespace ft
 			explicit vector( size_type count, const value_type& value = value_type(), const allocator_type& alloc = Allocator() ):
 				_alloc(alloc),
 				_size(count),
-				_capacity(count * 2),
-				_start(_alloc.allocate(count * 2)),
+				_capacity(count),
+				_start(_alloc.allocate(count)),
 				_end(_start + count),
 				_end_of_storage(_start + _capacity)
 			{
@@ -140,22 +161,24 @@ namespace ft
 				return (*this);
 			}
 
-			void	assign( size_type count, const value_type& value )
+			void	assign(size_type count, const value_type& value)
 			{
-				reserve(count * 2);
+				if (count > _capacity)
+					reserve(count * 2);
 				_size = count;
 				_end = _start + _size;
-				for (int i = 0; i < count; i++)
+				for (size_type i = 0; i < count; i++)
 					_alloc.construct(_start + i, value);
 			}
 
 			template < class InputIt >
-			void	assign( InputIt first, InputIt last )
+			void	assign(InputIt first, InputIt last)
 			{
-				reserve((last - first) * 2);
+				if (_size != last - first)
+					reserve(last - first);
 				_size = last - first;
 				_end = _start + _size;
-				for (int i = 0; first != last; ++first, ++i)
+				for (size_type i = 0; first != last; ++first, ++i)
 					_alloc.construct(_start + i, *first);
 			}
 
@@ -237,6 +260,7 @@ namespace ft
 				_start = new_start;
 				_capacity = new_cap;
 				_end_of_storage = _start + _capacity;
+				_end = _start + _size;
 			}
 
 			size_type	capacity(void) const
@@ -256,6 +280,39 @@ namespace ft
 					_alloc.destroy(_start + i);
 				_size = 0;
 				_end = _start;
+			}
+
+			void	push_back(const value_type& value)
+			{
+				if (_size >= _capacity)
+					reserve(std::max((int)_capacity * 2, 1));
+				_alloc.construct(_end, value);
+				++_size;
+				++_end;
+			}
+
+			void	pop_back(void)
+			{
+				_alloc.destroy(_end);
+				--_size;
+				--_end;
+			}
+
+			iterator	insert(iterator pos, const value_type& value)
+			{
+				move_right(pos, 1);
+				_alloc.construct(pos.operator->(), value);
+				return (pos);
+			}
+
+			iterator	insert(iterator pos, size_type count, const value_type& value)
+			{
+				difference_type	offset = pos - begin();
+
+				move_right(pos, count);
+				for (size_type i = 0; i < count; ++i)
+					_alloc.construct(_start + offset + i, value);
+				return (pos);
 			}
 	};
 

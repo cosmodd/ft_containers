@@ -173,6 +173,12 @@ namespace ft
 				return (_ptr >= other._ptr);
 			}
 
+			friend std::ostream &operator<<(std::ostream &out, const vector_iterator &it)
+			{
+				out << it._ptr;
+				return (out);
+			}
+
 	};
 
 }

@@ -87,17 +87,17 @@ Containers:
 				✔ ft::vector::empty(void) const; @done(23-01-23 14:23)
 				✔ ft::vector::size(void) const; @done(23-01-23 14:23)
 				✔ ft::vector::max_size(void) const; @done(23-01-23 14:23)
-				☐ ft::vector::reserve(size_type new_cap);
+				✔ ft::vector::reserve(size_type new_cap); @done(23-01-27 10:56)
 				✔ ft::vector::capacity(void) const; @done(23-01-23 14:23)
 			Modifiers:
 				✔ ft::vector::clear(void); @done(23-01-23 14:30)
-				☐ ft::vector::insert(iterator pos, const T& value);
-				☐ ft::vector::insert(iterator pos, size_type count, const T& value);
+				✔ ft::vector::insert(iterator pos, const T& value); @done(23-01-27 15:20)
+				✔ ft::vector::insert(iterator pos, size_type count, const T& value); @done(23-01-27 16:42)
 				☐ template< class InputIt > ft::vector::insert(iterator pos, InputIt first, InputIt last);
 				☐ ft::vector::erase(iterator pos);
 				☐ ft::vector::erase(iterator first, iterator last);
-				☐ ft::vector::push_back(const T& value);
-				☐ ft::vector::pop_back(void);
+				✔ ft::vector::push_back(const T& value); @done(23-01-27 10:44)
+				✔ ft::vector::pop_back(void); @done(23-01-27 10:57)
 				☐ ft::vector::resize(size_type count, T val = T());
 				☐ ft::vector::swap(ft::vector& other);
 

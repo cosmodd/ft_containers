@@ -131,7 +131,7 @@ static void printVectorInformations(Vector &vec)
 	std::cout << "Empty: " << emojiBoolean(vec.empty()) << std::endl;
 	std::cout << "Size: " << vec.size() << std::endl;
 	std::cout << "Content: ";
-	for (int i = 0; i < vec.size(); i++)
+	for (typename Vector::size_type i = 0; i < vec.size(); i++)
 	{
 		if (i > 0)
 			std::cout << ", ";
@@ -157,8 +157,11 @@ template <class T>
 static void printVector(std::vector<T> vec, std::string name)
 {
 	if (!name.empty())
-		std::cout << name << ": ";
-	for (int i = 0; i < (int)vec.size(); i++)
+		std::cout << "🏷  " << name << std::endl;
+	std::cout << "📏 Size: " << vec.size() << std::endl;
+	std::cout << "🛢  Capacity: " << vec.capacity() << std::endl;
+	std::cout << "📦 Content: ";
+	for (typename ft::vector<T>::size_type i = 0; i < vec.size(); i++)
 	{
 		if (i > 0)
 			std::cout << ", ";
@@ -182,7 +185,7 @@ static void printVector(ft::vector<T> vec, std::string name)
 	std::cout << "📏 Size: " << vec.size() << std::endl;
 	std::cout << "🛢  Capacity: " << vec.capacity() << std::endl;
 	std::cout << "📦 Content: ";
-	for (int i = 0; i < (int)vec.size(); i++)
+	for (typename ft::vector<T>::size_type i = 0; i < vec.size(); i++)
 	{
 		if (i > 0)
 			std::cout << ", ";
@@ -195,7 +198,7 @@ template < class Iterator >
 static void	printRange(Iterator first, Iterator last, std::string name)
 {
 	if (!name.empty())
-		std::cout << name << ": ";
+		std::cout << name << "[" << last - first << "]: ";
 	while (first != last)
 	{
 		std::cout << *first;
@@ -217,35 +220,53 @@ static void testBooleans(std::string name, T a, T b)
 	std::cout << "a >= b: " << emojiBoolean(a >= b) << std::endl;
 }
 
+template <class T>
+static void	printIntegral(const std::string name)
+{
+	std::cout << " " << std::left
+		<< std::setw(30) << name << " ⎮ "
+		<< std::setw(28) << emojiBoolean(std::is_integral<T>::value, true) << " ⎮ "
+		<< std::setw(28) << emojiBoolean(ft::is_integral<T>::value, true) << std::endl;
+}
+
+// Displays a boolean as a green checkmark or a red cross
+// deopending on the value of the boolean of
+// std::is_integral<T>::value and ft::is_integral<T>::value
 static void	testIntegrals()
 {
-	std::cout << std::setw(25) << "T<int> = " << emojiBoolean(ft::is_integral<int>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<char> = " << emojiBoolean(ft::is_integral<char>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<float> = " << emojiBoolean(ft::is_integral<float>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<double> = " << emojiBoolean(ft::is_integral<double>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<long> = " << emojiBoolean(ft::is_integral<long>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<long long> = " << emojiBoolean(ft::is_integral<long long>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<short> = " << emojiBoolean(ft::is_integral<short>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<unsigned int> = " << emojiBoolean(ft::is_integral<unsigned int>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<unsigned char> = " << emojiBoolean(ft::is_integral<unsigned char>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<unsigned long> = " << emojiBoolean(ft::is_integral<unsigned long>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<unsigned long long> = " << emojiBoolean(ft::is_integral<unsigned long long>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<unsigned short> = " << emojiBoolean(ft::is_integral<unsigned short>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<bool> = " << emojiBoolean(ft::is_integral<bool>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<std::string> = " << emojiBoolean(ft::is_integral<std::string>::value, true) << std::endl;
-	std::cout << std::setw(25) << "T<std::vector<int>> = " << emojiBoolean(ft::is_integral<std::vector<int> >::value, true) << std::endl;
+	std::cout << "\e[47m " << std::left
+		<< std::setw(30) << "TYPE" << " ⎮ "
+		<< std::setw(18) << "std::is_integral" << " ⎮ "
+		<< std::setw(18) << "ft::is_integral" << " \e[0m" << std::endl;
+
+	printIntegral<bool>("bool");
+	printIntegral<char>("char");
+	printIntegral<signed char>("signed char");
+	printIntegral<unsigned char>("unsigned char");
+	printIntegral<wchar_t>("wchar_t");
+	printIntegral<short>("short");
+	printIntegral<unsigned short>("unsigned short");
+	printIntegral<int>("int");
+	printIntegral<unsigned int>("unsigned int");
+	printIntegral<long>("long");
+	printIntegral<unsigned long>("unsigned long");
+	printIntegral<long long>("long long");
+	printIntegral<unsigned long long>("unsigned long long");
+	printIntegral<float>("float");
+	printIntegral<double>("double");
+	printIntegral<long double>("long double");
+	printIntegral<std::string>("std::string");
+	printIntegral<std::vector<int> >("std::vector<int>");
 }
 
 int main(void)
 {
-	static const int	size = 10;
+	(void) testIntegrals;
+	ft::vector<int>				vector(10, 42);
+	ft::vector<int>::iterator	it(vector.begin());
 
-	std::vector<int>	range;
-	for (int i = 0; i < size; i++) range.push_back(i);
-
-	ft::vector<int>			ft_vector(range.begin(), range.end());
-
-	ft::vector<int>::const_iterator	begin = ft_vector.begin();
-	ft::vector<int>::const_iterator	end = ft_vector.end();
+	printVector(vector, "vector"); std::cout << std::endl;
+	vector.insert(it, 15);
+	printVector(vector, "vector"); std::cout << std::endl;
 	return (EXIT_SUCCESS);
 }
