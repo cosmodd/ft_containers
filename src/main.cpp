@@ -26,176 +26,46 @@ struct test_integral
 	operator bool() const { return value; }
 };
 
-#if defined(FT_STACK) || defined(FT_VECTOR)
-static std::string	emojiBoolean(bool value, bool verbose = false)
+// -------------------------------------------------------------------------- //
+//  Functions                                                                 //
+// -------------------------------------------------------------------------- //
+
+static std::string emojiBoolean(bool b, bool verbose = false)
 {
 	if (verbose)
-		return (value ? "\e[42m ✅ Yes \e[0m" : "\e[41m ❌ No  \e[0m");
-	return (value ? "✅" : "❌");
+		return b ? "✅ Yes" : "❌ No";
+	return b ? "✅" : "❌";
 }
-#endif
-
-#ifdef FT_STACK
-
-template <class T, class Container>
-static void printStackInformation(ft::stack<T, Container> &stack)
-{
-	ft::stack<T, Container> copy = stack;
-	int index = 0;
-
-	std::cout << std::endl;
-	std::cout << "Is empty: " << emojiBoolean(stack.empty()) << std::endl;
-	std::cout << "Size: " << stack.size() << std::endl;
-	std::cout << "Content: ";
-	while (!copy.empty())
-	{
-		if (index > 0)
-			std::cout << ", ";
-		std::cout << copy.top();
-		copy.pop();
-		index++;
-	}
-	std::cout << std::endl;
-}
-
-template <class T, class Container>
-static void printStackInformation(std::stack<T, Container> &stack)
-{
-	std::stack<T, Container> copy = stack;
-	int index = 0;
-
-	std::cout << std::endl;
-	std::cout << "Is empty: " << emojiBoolean(stack.empty()) << std::endl;
-	std::cout << "Size: " << stack.size() << std::endl;
-	std::cout << "Content: ";
-	while (!copy.empty())
-	{
-		if (index > 0)
-			std::cout << ", ";
-		std::cout << copy.top();
-		copy.pop();
-		index++;
-	}
-	std::cout << std::endl;
-}
-
-template <class S>
-void test_stack(S &stack)
-{
-	S other;
-	std::chrono::time_point<std::chrono::high_resolution_clock> start;
-	std::chrono::time_point<std::chrono::high_resolution_clock> end;
-	std::chrono::duration<double, std::milli> time;
-
-	printStackInformation(stack);
-	start = std::chrono::high_resolution_clock::now();
-	for (int i = 0; i < 10; i++)
-	{
-		stack.push(i);
-		other.push(i);
-	}
-	end = std::chrono::high_resolution_clock::now();
-	printStackInformation(stack);
-	time = end - start;
-
-	std::cout << "Time spent: " << time.count() << "ms" << std::endl;
-
-	std::cout << std::endl;
-	std::cout << "(stack == other) = " << emojiBoolean(stack == other, true) << std::endl;
-	std::cout << "(stack != other) = " << emojiBoolean(stack != other, true) << std::endl;
-	std::cout << "(stack < other) = " << emojiBoolean(stack < other, true) << std::endl;
-	std::cout << "(stack <= other) = " << emojiBoolean(stack <= other, true) << std::endl;
-	std::cout << "(stack > other) = " << emojiBoolean(stack > other, true) << std::endl;
-	std::cout << "(stack >= other) = " << emojiBoolean(stack >= other, true) << std::endl;
-}
-
-void test_stacks()
-{
-	ft::stack<int> stack;
-	std::stack<int> stdstack;
-
-	std::cout << "\e[94m ft::Stack \e[0m" << std::endl;
-	test_stack(stack);
-	std::cout << "\e[94m std::stack \e[0m" << std::endl;
-	test_stack(stdstack);
-}
-
-#endif
-
-#ifdef FT_VECTOR
 
 template <class Vector>
-static void printVectorInformations(Vector &vec)
+static void printVector(Vector const &vec, std::string name = "", bool print_content = true)
 {
 	std::cout << std::endl;
-	std::cout << "Empty: " << emojiBoolean(vec.empty()) << std::endl;
-	std::cout << "Size: " << vec.size() << std::endl;
-	std::cout << "Content: ";
-	for (typename Vector::size_type i = 0; i < vec.size(); i++)
-	{
-		if (i > 0)
-			std::cout << ", ";
-		std::cout << vec[i];
-	}
-	std::cout << std::endl;
-}
-
-void test_vectors()
-{
-	ft::vector<int> vector;
-	std::vector<int> stdvector;
-
-	std::cout << "\e[94m ft::Vector \e[0m" << std::endl;
-	printVectorInformations(vector);
-	std::cout << "\e[94m std::vector \e[0m" << std::endl;
-	printVectorInformations(stdvector);
-}
-
-#endif
-
-template <class T>
-static void printVector(std::vector<T> vec, std::string name)
-{
 	if (!name.empty())
 		std::cout << "🏷  " << name << std::endl;
 	std::cout << "📏 Size: " << vec.size() << std::endl;
 	std::cout << "🛢  Capacity: " << vec.capacity() << std::endl;
-	std::cout << "📦 Content: ";
-	for (typename ft::vector<T>::size_type i = 0; i < vec.size(); i++)
+
+	if (print_content)
 	{
-		if (i > 0)
-			std::cout << ", ";
-		std::cout << vec[i];
+		std::cout << "📦 Content: ";
+
+		typename Vector::const_iterator it = vec.begin();
+		typename Vector::const_iterator ite = vec.end();
+
+		for (; it != ite; ++it)
+		{
+			if (it != vec.begin())
+				std::cout << ", ";
+			std::cout << *it;
+		}
+
+		std::cout << std::endl;
 	}
-	std::cout << std::endl;
 }
 
-
-/**
- * 🏷 ft::vector
- * 📏 Size: 0
- * 🛢 Capacity: 0
- * 📦 Content: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
- */
-template <class T>
-static void printVector(ft::vector<T> vec, std::string name)
-{
-	if (!name.empty())
-		std::cout << "🏷  " << name << std::endl;
-	std::cout << "📏 Size: " << vec.size() << std::endl;
-	std::cout << "🛢  Capacity: " << vec.capacity() << std::endl;
-	std::cout << "📦 Content: ";
-	for (typename ft::vector<T>::size_type i = 0; i < vec.size(); i++)
-	{
-		if (i > 0)
-			std::cout << ", ";
-		std::cout << vec[i];
-	}
-	std::cout << std::endl;
-}
-
-template < class Iterator >
-static void	printRange(Iterator first, Iterator last, std::string name)
+template <class Iterator>
+static void printRange(Iterator first, Iterator last, std::string name)
 {
 	if (!name.empty())
 		std::cout << name << "[" << last - first << "]: ";
@@ -209,7 +79,7 @@ static void	printRange(Iterator first, Iterator last, std::string name)
 }
 
 template <class T>
-static void testBooleans(std::string name, T a, T b)
+static void testComparisons(std::string name, T a, T b)
 {
 	std::cout << name << ": " << std::endl;
 	std::cout << "a == b: " << emojiBoolean(a == b) << std::endl;
@@ -221,23 +91,26 @@ static void testBooleans(std::string name, T a, T b)
 }
 
 template <class T>
-static void	printIntegral(const std::string name)
+static void printIntegral(const std::string name)
 {
 	std::cout << " " << std::left
-		<< std::setw(30) << name << " ⎮ "
-		<< std::setw(28) << emojiBoolean(std::is_integral<T>::value, true) << " ⎮ "
-		<< std::setw(28) << emojiBoolean(ft::is_integral<T>::value, true) << std::endl;
+			  << std::setw(30) << name << " ⎮ "
+			  << std::setw(28) << emojiBoolean(std::is_integral<T>::value, true) << " ⎮ "
+			  << std::setw(28) << emojiBoolean(ft::is_integral<T>::value, true) << std::endl;
 }
 
 // Displays a boolean as a green checkmark or a red cross
 // deopending on the value of the boolean of
 // std::is_integral<T>::value and ft::is_integral<T>::value
-static void	testIntegrals()
+static void testIntegrals()
 {
 	std::cout << "\e[47m " << std::left
-		<< std::setw(30) << "TYPE" << " ⎮ "
-		<< std::setw(18) << "std::is_integral" << " ⎮ "
-		<< std::setw(18) << "ft::is_integral" << " \e[0m" << std::endl;
+			  << std::setw(30) << "TYPE"
+			  << " ⎮ "
+			  << std::setw(18) << "std::is_integral"
+			  << " ⎮ "
+			  << std::setw(18) << "ft::is_integral"
+			  << " \e[0m" << std::endl;
 
 	printIntegral<bool>("bool");
 	printIntegral<char>("char");
@@ -259,14 +132,115 @@ static void	testIntegrals()
 	printIntegral<std::vector<int> >("std::vector<int>");
 }
 
+static uint64_t timer(void)
+{
+	using namespace std::chrono;
+	return duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+}
+
+static void printExecutionTime(uint64_t start, uint64_t end)
+{
+	std::cout << "Execution time: " << end - start << " ms" << std::endl;
+}
+
+static void printDiff(std::vector<int> const &v1, std::vector<int> const &v2)
+{
+	// Prints the two vectors side by side and highlights the differences
+	std::string s1 = "ft::vector = {";
+	std::string s2 = "std::vector = {";
+
+	for (size_t i = 0; i < v1.size(); ++i)
+	{
+		if (v1[i] != v2[i])
+		{
+			s1 += "\e[41m";
+			s2 += "\e[41m";
+		}
+		s1 += std::to_string(v1[i]);
+		s2 += std::to_string(v2[i]);
+		if (v1[i] != v2[i])
+		{
+			s1 += "\e[0m";
+			s2 += "\e[0m";
+		}
+		if (i != v1.size() - 1)
+		{	
+			s1 += ", ";
+			s2 += ", ";
+		}
+	}
+
+	s1 += "}";
+	s2 += "}";
+
+	std::cout << s1 << std::endl;
+	std::cout << s2 << std::endl;
+}
+
+std::vector<int>	g_range;
+
+template <class Vector>
+static std::vector<int> testVector(uint64_t &start, uint64_t &end, bool ft = false)
+{
+	std::vector<int>	results;
+	Vector				vector;
+	Vector				temp;
+
+	start = timer();
+
+	std::cout << "\n\e[47m " << (ft ? "ft::" : "std::") << "vector \e[0m\n"
+			  << std::endl;
+
+	temp.assign(26, 1);
+	vector.assign(42, 1);
+	vector.insert(vector.end() - 10, temp.begin(), temp.end());
+	results.push_back(vector[3]);
+	results.push_back(vector.size());
+	results.push_back(vector.capacity());
+
+	if (ft)
+	{
+		ft::vector<double>		ft_vector;
+		ft::vector<int>			ft_vector2;
+
+		ft_vector.assign(42, 1);
+		try
+		{
+			ft_vector2.insert(ft_vector2.begin(), ft_vector.begin(), ft_vector.end());
+		}
+		catch (...) {
+			results.push_back(ft_vector2.size());
+			results.push_back(ft_vector2.capacity());
+		}
+	}
+
+	end = timer();
+	std::cout << std::endl;
+	printExecutionTime(start, end);
+
+	return (results);
+}
+
 int main(void)
 {
-	(void) testIntegrals;
-	ft::vector<int>				vector(10, 42);
-	ft::vector<int>::iterator	it(vector.begin());
+	(void)testIntegrals;
 
-	printVector(vector, "vector"); std::cout << std::endl;
-	vector.insert(it, 15);
-	printVector(vector, "vector"); std::cout << std::endl;
+	for (int i = 0; i < 100; ++i)
+		g_range.push_back(i);
+
+	uint64_t start;
+	uint64_t end;
+
+	std::vector<int> results[2];
+
+	results[0] = testVector<ft::vector<int> >(start, end, true);
+	results[1] = testVector<std::vector<int> >(start, end, false);
+
+	std::cout << "\n\e[47m Other tests \e[0m\n"
+			  << std::endl;
+
+	std::cout << "ft_vec == std_vec: " << emojiBoolean(results[0] == results[1]) << std::endl;
+	printDiff(results[0], results[1]);
+
 	return (EXIT_SUCCESS);
 }
