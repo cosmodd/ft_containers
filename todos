@@ -4,12 +4,12 @@ Containers:
 	✔ ft::enable_if @done(23-01-12 13:14)
 	✔ ft::is_integral @done(23-02-13 14:26)
 	✔ ft::equal @done(23-02-13 14:30)
-	☐ ft::lexicographical_compare
+	✔ ft::lexicographical_compare @done(23-02-21 12:16)
 	☐ ft::pair
 	☐ ft::make_pair
 
 	Stack<T, Container = ft::vector<T>>:
-		☐ Uses ft::vector as default container
+		✔ Uses ft::vector as default container @done(23-02-21 12:16)
 		✔ compatible with other containers @done(23-01-11 12:38)
 		Constructors:
 			✔ ft::stack::stack(const Container& cont = Container()); @done(23-01-10 16:14)
@@ -99,16 +99,16 @@ Containers:
 				✔ ft::vector::push_back(const T& value); @done(23-01-27 10:44)
 				✔ ft::vector::pop_back(void); @done(23-01-27 10:57)
 				✔ ft::vector::resize(size_type count, T val = T()); @done(23-02-14 13:23)
-				☐ ft::vector::swap(ft::vector& other);
+				✔ ft::vector::swap(ft::vector& other); @done(23-02-21 12:16)
 
 		Non-member functions:
-			☐ ft::vector::operator==(const ft::vector& lhs, const ft::vector& rhs);
-			☐ ft::vector::operator!=(const ft::vector& lhs, const ft::vector& rhs);
-			☐ ft::vector::operator<(const ft::vector& lhs, const ft::vector& rhs);
-			☐ ft::vector::operator<=(const ft::vector& lhs, const ft::vector& rhs);
-			☐ ft::vector::operator>(const ft::vector& lhs, const ft::vector& rhs);
-			☐ ft::vector::operator>=(const ft::vector& lhs, const ft::vector& rhs);
-			☐ ft::vector::swap(ft::vector& lhs, ft::vector& rhs);
+			✔ ft::vector::operator==(const ft::vector& lhs, const ft::vector& rhs); @done(23-02-21 12:16)
+			✔ ft::vector::operator!=(const ft::vector& lhs, const ft::vector& rhs); @done(23-02-21 12:16)
+			✔ ft::vector::operator<(const ft::vector& lhs, const ft::vector& rhs); @done(23-02-21 12:16)
+			✔ ft::vector::operator<=(const ft::vector& lhs, const ft::vector& rhs); @done(23-02-21 12:16)
+			✔ ft::vector::operator>(const ft::vector& lhs, const ft::vector& rhs); @done(23-02-21 12:16)
+			✔ ft::vector::operator>=(const ft::vector& lhs, const ft::vector& rhs); @done(23-02-21 12:16)
+			✔ ft::vector::swap(ft::vector& lhs, ft::vector& rhs); @done(23-02-21 12:17)
 
 	Map<Key, T, Compare=std::less<Key>, Allocator = std::allocator<std::pair<const Key, T>>>:
 		Constructors:

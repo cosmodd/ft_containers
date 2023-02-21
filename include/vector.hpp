@@ -473,4 +473,10 @@ namespace ft
 		return (!(lhs <= rhs));
 	}
 
+	template < class T, class Alloc >
+	void	swap(vector<T,Alloc>& lhs, vector<T,Alloc>& rhs)
+	{
+		lhs.swap(rhs);
+	}
+
 }
