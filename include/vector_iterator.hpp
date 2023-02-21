@@ -179,6 +179,88 @@ namespace ft
 				return (out);
 			}
 
+			// -------------------------------------------------------------- //
+			//  Friends                                                       //
+			// -------------------------------------------------------------- //
+
+			// --- Addition --- //
+			template <typename U>
+			friend vector_iterator<U> operator+(typename vector_iterator<U>::difference_type n, const vector_iterator<U> &it);
+
+			// --- Difference --- //
+			template <typename IteratorLeft, typename IteratorRight>
+			friend typename IteratorRight::difference_type operator-(const IteratorLeft &left, const IteratorRight &right);
+
+			// --- Comparison --- //
+			template <class IteratorLeft, class IteratorRight>
+			friend bool operator==(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right);
+
+			template <class IteratorLeft, class IteratorRight>
+			friend bool operator!=(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right);
+
+			template <class IteratorLeft, class IteratorRight>
+			friend bool operator<(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right);
+
+			template <class IteratorLeft, class IteratorRight>
+			friend bool operator<=(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right);
+
+			template <class IteratorLeft, class IteratorRight>
+			friend bool operator>(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right);
+
+			template <class IteratorLeft, class IteratorRight>
+			friend bool operator>=(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right);
+
 	};
+
+	template <typename T>
+	vector_iterator<T> operator+(typename vector_iterator<T>::difference_type n, const vector_iterator<T> &it)
+	{
+		return (it + n);
+	}
+
+	// Using IteratorRight::difference_type instead of IteratorLeft::difference_type
+	// to make sure that IteratorLeft and IteratorRight are of the same type
+	template <class IteratorLeft, class IteratorRight>
+	typename IteratorRight::difference_type operator-(const IteratorLeft &left, const IteratorRight &right)
+	{
+		return (left._ptr - right._ptr);
+	}
+
+	template <class IteratorLeft, class IteratorRight>
+	bool operator==(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right)
+	{
+		return (left._ptr == right._ptr);
+	}
+
+	template <class IteratorLeft, class IteratorRight>
+	bool operator!=(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right)
+	{
+		return (left._ptr != right._ptr);
+	}
+
+	template <class IteratorLeft, class IteratorRight>
+	bool operator<(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right)
+	{
+		return (left._ptr < right._ptr);
+	}
+
+	template <class IteratorLeft, class IteratorRight>
+	bool operator<=(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right)
+	{
+		return (left._ptr <= right._ptr);
+	}
+
+	template <class IteratorLeft, class IteratorRight>
+	bool operator>(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right)
+	{
+		return (left._ptr > right._ptr);
+	}
+
+	template <class IteratorLeft, class IteratorRight>
+	bool operator>=(const vector_iterator<IteratorLeft> &left, const vector_iterator<IteratorRight> &right)
+	{
+		return (left._ptr >= right._ptr);
+	}
+
 
 }
