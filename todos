@@ -6,7 +6,7 @@ Containers:
 	✔ ft::equal @done(23-02-13 14:30)
 	✔ ft::lexicographical_compare @done(23-02-21 12:16)
 	✔ ft::pair @done(23-02-21 13:19)
-	☐ ft::make_pair
+	✔ ft::make_pair @done(23-02-21 13:33)
 
 	Stack<T, Container = ft::vector<T>>:
 		✔ Uses ft::vector as default container @done(23-02-21 12:16)
