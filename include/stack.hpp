@@ -1,9 +1,5 @@
 #pragma once
 
-#ifndef FT_STACK
-# define FT_STACK
-#endif
-
 #include <vector>
 
 namespace ft
