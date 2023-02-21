@@ -6,10 +6,7 @@
 
 #include "iterators.hpp"
 #include "vector_iterator.hpp"
-#include "enable_if.hpp"
-#include "is_integral.hpp"
-#include "equal.hpp"
-#include "lexicographical_compare.hpp"
+#include "utility.hpp"
 
 namespace ft
 {
