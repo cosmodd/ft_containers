@@ -43,12 +43,12 @@ namespace ft
 			{}
 
 			template <class U> reverse_iterator(const reverse_iterator<U> &other):
-				current(other.current)
+				current(other.base())
 			{}
 
 			template <class U> reverse_iterator& operator=(const reverse_iterator<U> &other)
 			{
-				current = other.current;
+				current = other.base();
 				return *this;
 			}
 
@@ -105,7 +105,7 @@ namespace ft
 			}
 
 			// Returns a copy of the current reverse iterator moved by n
-			reverse_iterator	operator+(difference_type n)
+			reverse_iterator	operator+(difference_type n) const
 			{
 				return reverse_iterator(current - n);
 			}
@@ -135,7 +135,7 @@ namespace ft
 			}
 
 			// Returns a copy of the current reverse iterator moved by n
-			reverse_iterator	operator-(difference_type n)
+			reverse_iterator	operator-(difference_type n) const
 			{
 				return reverse_iterator(current + n);
 			}
@@ -196,7 +196,7 @@ namespace ft
 	template< class Iterator >
 	ft::reverse_iterator<Iterator> operator+( typename ft::reverse_iterator<Iterator>::difference_type n, const ft::reverse_iterator<Iterator>& it )
 	{
-		return it + n;
+		return it.operator+(n);
 	}
 
 	// https://devdocs.io/cpp/iterator/reverse_iterator/operator-
@@ -213,7 +213,7 @@ namespace ft
 	// Allows the following operation:
 	// const ft::reverse_iterator<IterL> - const ft::reverse_iterator<IterR>
 	template < class IterL, class IterR >
-	typename ft::reverse_iterator<IterL>::difference_type operator-( const ft::reverse_iterator<IterL>& lhs, const ft::reverse_iterator<IterR>& rhs )
+	typename ft::reverse_iterator<IterR>::difference_type operator-( const ft::reverse_iterator<IterL>& lhs, const ft::reverse_iterator<IterR>& rhs )
 	{
 		return rhs.base() - lhs.base();
 	}
