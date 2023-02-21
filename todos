@@ -2,8 +2,8 @@ Containers:
 	✔ ft::iterator_traits @done(23-01-12 13:14)
 	✔ ft::reverse_iterator @done(23-01-23 10:02)
 	✔ ft::enable_if @done(23-01-12 13:14)
-	☐ ft::is_integral
-	☐ ft::equal
+	✔ ft::is_integral @done(23-02-13 14:26)
+	✔ ft::equal @done(23-02-13 14:30)
 	☐ ft::lexicographical_compare
 	☐ ft::pair
 	☐ ft::make_pair
@@ -59,21 +59,21 @@ Containers:
 				✔ ft::vector::reverse_iterator; @done(23-01-23 10:24)
 				✔ ft::vector::const_reverse_iterator; @done(23-01-23 10:24)
 		Member functions:
-			☐ ft::vector::operator=(const ft::vector& other);
+			✔ ft::vector::operator=(const ft::vector& other); @done(23-01-30 14:37)
 			✔ ft::vector::assign(size_type count, const T& value); @done(23-01-23 16:27)
 			✔ template< class InputIt > ft::vector::assign(InputIt first, InputIt last); @done(23-01-23 16:27)
-			☐ ft::vector::get_allocator(void) const;
+			✔ ft::vector::get_allocator(void) const; @done(23-01-30 13:49)
 			Element access:
-				☐ ft::vector::at(size_type pos);
-				☐ ft::vector::at(size_type pos) const;
-				☐ ft::vector::operator[](size_type pos);
-				☐ ft::vector::operator[](size_type pos) const;
-				☐ ft::vector::front(void);
-				☐ ft::vector::front(void) const;
-				☐ ft::vector::back(void);
-				☐ ft::vector::back(void) const;
-				☐ ft::vector::data(void);
-				☐ ft::vector::data(void) const;
+				✔ ft::vector::at(size_type pos); @done(23-01-30 14:39)
+				✔ ft::vector::at(size_type pos) const; @done(23-01-30 14:39)
+				✔ ft::vector::operator[](size_type pos); @done(23-01-30 14:39)
+				✔ ft::vector::operator[](size_type pos) const; @done(23-01-30 14:39)
+				✔ ft::vector::front(void); @done(23-01-30 14:40)
+				✔ ft::vector::front(void) const; @done(23-01-30 14:40)
+				✔ ft::vector::back(void); @done(23-01-30 14:40)
+				✔ ft::vector::back(void) const; @done(23-01-30 14:40)
+				✔ ft::vector::data(void); @done(23-01-30 14:40)
+				✔ ft::vector::data(void) const; @done(23-01-30 14:40)
 			Iterators:
 				✔ ft::vector::begin(void); @done(23-01-23 13:11)
 				✔ ft::vector::begin(void) const; @done(23-01-23 13:11)
@@ -93,12 +93,12 @@ Containers:
 				✔ ft::vector::clear(void); @done(23-01-23 14:30)
 				✔ ft::vector::insert(iterator pos, const T& value); @done(23-01-27 15:20)
 				✔ ft::vector::insert(iterator pos, size_type count, const T& value); @done(23-01-27 16:42)
-				☐ template< class InputIt > ft::vector::insert(iterator pos, InputIt first, InputIt last);
-				☐ ft::vector::erase(iterator pos);
-				☐ ft::vector::erase(iterator first, iterator last);
+				✔ template< class InputIt > ft::vector::insert(iterator pos, InputIt first, InputIt last); @done(23-01-30 14:54)
+				✔ ft::vector::erase(iterator pos); @done(23-01-30 15:06)
+				✔ ft::vector::erase(iterator first, iterator last); @done(23-01-30 15:06)
 				✔ ft::vector::push_back(const T& value); @done(23-01-27 10:44)
 				✔ ft::vector::pop_back(void); @done(23-01-27 10:57)
-				☐ ft::vector::resize(size_type count, T val = T());
+				✔ ft::vector::resize(size_type count, T val = T()); @done(23-02-14 13:23)
 				☐ ft::vector::swap(ft::vector& other);
 
 		Non-member functions:
