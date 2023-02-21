@@ -5,7 +5,7 @@ Containers:
 	✔ ft::is_integral @done(23-02-13 14:26)
 	✔ ft::equal @done(23-02-13 14:30)
 	✔ ft::lexicographical_compare @done(23-02-21 12:16)
-	☐ ft::pair
+	✔ ft::pair @done(23-02-21 13:19)
 	☐ ft::make_pair
 
 	Stack<T, Container = ft::vector<T>>:
