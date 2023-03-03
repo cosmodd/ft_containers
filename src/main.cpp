@@ -1,6 +1,8 @@
 #include "stack.hpp"
 #include "vector.hpp"
 #include "utility.hpp"
+#include "RBTree.hpp"
+#include "RBTree_iterator.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -162,7 +164,7 @@ static void printDiff(std::vector<int> const &v1, std::vector<int> const &v2)
 			s2 += "\e[0m";
 		}
 		if (i != v1.size() - 1)
-		{	
+		{
 			s1 += ", ";
 			s2 += ", ";
 		}
@@ -177,11 +179,61 @@ static void printDiff(std::vector<int> const &v1, std::vector<int> const &v2)
 
 int main(void)
 {
-	(void)testIntegrals;
+	typedef ft::RBTree<int>	Container;
 
-	ft::pair<std::string, int> p = ft::make_pair("Hello", 42);
-	std::cout << p.first << " " << p.second << std::endl;
+	// --- Containers --- //
+	Container								tree;
 
+	// --- Nodes --- //
+	Container::node_pointer					leftMost;
+	Container::node_pointer					rightMost;
+
+	// --- Iterators --- //
+	ft::RBTree_iterator<Container>			it;
+	const ft::RBTree_iterator<Container>	ite; // Iterator pointing to NULL
+
+	ft::reverse_iterator<ft::RBTree_iterator<Container> > rit;
+	ft::reverse_iterator<ft::RBTree_iterator<Container> > rite;
+
+	// --- Tests --- //
+	tree.insert(3);
+	tree.insert(2);
+	tree.insert(1);
+
+	leftMost = tree.getRoot();
+	while (leftMost->left)
+		leftMost = leftMost->left;
+
+	rightMost = tree.getRoot();
+	while (rightMost->right)
+		rightMost = rightMost->right;
+
+	// --- In-order traversal --- //
+	std::cout << "\e[100;37m In-order traversal \e[0m" << std::endl;
+	it = leftMost;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		++it;
+	}
+
+	// --- Reverse in-order traversal --- //
+	std::cout << "\e[100;37m Reverse in-order traversal \e[0m" << std::endl;
+	it = rightMost;
+	while (it != ite)
+	{
+		std::cout << *it << std::endl;
+		--it;
+	}
+
+	// --- Reverse iterator --- //
+	std::cout << "\e[100;37m Reverse iterator \e[0m" << std::endl;
+	rit = ft::reverse_iterator<ft::RBTree_iterator<Container> >(rightMost);
+	while (rit != rite)
+	{
+		std::cout << *rit << std::endl;
+		++rit;
+	}
 
 	return (EXIT_SUCCESS);
 }
