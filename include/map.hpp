@@ -25,6 +25,7 @@ namespace ft
 			typedef std::ptrdiff_t						difference_type;
 			typedef Compare								key_compare;
 			typedef Allocator							allocator_type;
+			
 			typedef value_type&							reference;
 			typedef const value_type&					const_reference;
 			typedef typename Allocator::pointer			pointer;
@@ -44,6 +45,7 @@ namespace ft
 			// -------------------------------------------------------------- //
 			//  Constructors                                                  //
 			// -------------------------------------------------------------- //
+
 
 	};
 

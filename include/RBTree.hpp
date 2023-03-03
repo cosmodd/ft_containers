@@ -62,16 +62,32 @@ namespace ft
 				{}
 			};
 
+			// --- Node types --- //
+			typedef Node*		node_pointer;
+			typedef const Node*	const_node_pointer;
+
+			typedef Node&		node_reference;
+			typedef const Node&	const_node_reference;
+
+			// -------------------------------------------------------------- //
+			//  Iterators                                                     //
+			// -------------------------------------------------------------- //
+			typedef RBTree_iterator<RBTree<T, Compare, Allocator> >			iterator;
+			typedef RBTree_iterator<const RBTree<T, Compare, Allocator> >	const_iterator;
+
+			typedef ft::reverse_iterator<iterator>							reverse_iterator;
+			typedef ft::reverse_iterator<const_iterator>					const_reverse_iterator;
+
 		private:
-			Node	*newNode(const_reference data)
+			node_pointer	newNode(const_reference data)
 			{
-				Node	*node = _nodeAllocator.allocate(1);
+				node_pointer	node = _nodeAllocator.allocate(1);
 
 				_nodeAllocator.construct(node, data);
 				return node;
 			}
 
-			void	deleteNode(Node **node)
+			void	deleteNode(node_pointer *node)
 			{
 				if (node == nullptr || *node == nullptr)
 					return ;
@@ -82,7 +98,7 @@ namespace ft
 				*node = nullptr;
 			}
 
-			void	deleteTree(Node *node)
+			void	deleteTree(node_pointer node)
 			{
 				if (node == nullptr)
 					return ;
@@ -92,12 +108,12 @@ namespace ft
 				deleteNode(&node);
 			}
 
-			bool	isBlack(Node *node)
+			bool	isBlack(node_pointer node)
 			{
 				return (node == nullptr || node->color == Node::BLACK);
 			}
 
-			void replaceChildParent(Node *parent, Node *oldChild, Node *newChild)
+			void replaceChildParent(node_pointer parent, node_pointer oldChild, node_pointer newChild)
 			{
 				if (parent == nullptr)
 					_root = newChild;
@@ -112,9 +128,9 @@ namespace ft
 					newChild->parent = parent;
 			}
 
-			Node	*deleteWithZeroOrOneChild(Node *node, Node **movedParentNode)
+			node_pointer	deleteWithZeroOrOneChild(node_pointer node, node_pointer *movedParentNode)
 			{
-				Node	*moved = nullptr;
+				node_pointer	moved = nullptr;
 
 				if (node == nullptr)
 					return nullptr;
@@ -152,10 +168,10 @@ namespace ft
 			 *   2   1               1   0
 			 *
 			 */
-			void rightRotation(Node *node)
+			void rightRotation(node_pointer node)
 			{
-				Node	*parent = node->parent;
-				Node	*leftChild = node->left;
+				node_pointer	parent = node->parent;
+				node_pointer	leftChild = node->left;
 
 				if (leftChild == nullptr)
 					return ;
@@ -180,10 +196,10 @@ namespace ft
 			 *   2   1               1   0
 			 *
 			 */
-			void leftRotation(Node *node)
+			void leftRotation(node_pointer node)
 			{
-				Node	*parent = node->parent;
-				Node	*rightChild = node->right;
+				node_pointer	parent = node->parent;
+				node_pointer	rightChild = node->right;
 
 				if (rightChild == nullptr)
 					return ;
@@ -198,11 +214,11 @@ namespace ft
 				replaceChildParent(parent, node, rightChild);
 			}
 
-			void	fixTreeInsertion(Node *node)
+			void	fixTreeInsertion(node_pointer node)
 			{
-				Node	*parent = node->parent;
-				Node	*uncle = nullptr;
-				Node	*grandParent = nullptr;
+				node_pointer	parent = node->parent;
+				node_pointer	uncle = nullptr;
+				node_pointer	grandParent = nullptr;
 
 				// If node is the root
 				if (parent == nullptr)
@@ -256,9 +272,9 @@ namespace ft
 				grandParent->color = Node::RED;
 			}
 
-			void	fixTreeDeletion(Node *moveNode, Node *parent)
+			void	fixTreeDeletion(node_pointer moveNode, node_pointer parent)
 			{
-				Node	*sibling = nullptr;
+				node_pointer	sibling = nullptr;
 
 				// If node is the root
 				if (parent == nullptr)
@@ -351,7 +367,7 @@ namespace ft
 			}
 
 		private:
-			Node					*_root;
+			node_pointer					_root;
 			key_compare				_comparator;
 			allocator_type			_allocator;
 			std::allocator<Node>	_nodeAllocator;
@@ -365,11 +381,13 @@ namespace ft
 
 			RBTree(const RBTree &other)
 			{
+				(void)(other);
 				// TODO: implement copy constructor
 			}
 
 			RBTree &operator=(const RBTree &other)
 			{
+				(void)(other);
 				// TODO: implement copy assignment operator
 				return *this;
 			}
@@ -382,9 +400,9 @@ namespace ft
 			// -------------------------------------------------------------- //
 			//  Member functions                                              //
 			// -------------------------------------------------------------- //)
-			Node *search(const_reference data) const
+			node_pointer search(const_reference data) const
 			{
-				Node *current = _root;
+				node_pointer current = _root;
 
 				while (current != nullptr)
 				{
@@ -401,9 +419,9 @@ namespace ft
 
 			void	insert(const_reference data)
 			{
-				Node	*current = _root;
-				Node	*parent = nullptr;
-				Node	*node = newNode(data);
+				node_pointer	current = _root;
+				node_pointer	parent = nullptr;
+				node_pointer	node = newNode(data);
 
 				// If the tree is empty, the new node is the root
 				if (current == nullptr)
@@ -437,9 +455,9 @@ namespace ft
 
 			void	remove(const_reference data)
 			{
-				Node					*node = search(data);
-				Node					*movedNode = nullptr;
-				Node					*movedParentNode = nullptr;
+				node_pointer			node = search(data);
+				node_pointer			movedNode = nullptr;
+				node_pointer			movedParentNode = nullptr;
 				typename Node::Color	deletedColor = Node::RED;
 				// bool					hadNoChild = false;
 
@@ -455,7 +473,7 @@ namespace ft
 				}
 				else
 				{
-					Node	*successor = node->right;
+					node_pointer	successor = node->right;
 
 					// Find the successor
 					while (successor->left != nullptr)
@@ -476,9 +494,35 @@ namespace ft
 					fixTreeDeletion(movedNode, movedParentNode);
 			}
 
-			Node *getRoot() const
+			node_pointer getRoot() const
 			{
 				return _root;
+			}
+
+			// -------------------------------------------------------------- //
+			//  Iterators                                                     //
+			// -------------------------------------------------------------- //
+			iterator	begin()
+			{
+				node_pointer	current = _root;
+
+				if (current == nullptr)
+					return iterator(nullptr);
+
+				while (current->left != nullptr)
+					current = current->left;
+
+				return iterator(current);
+			}
+
+			iterator	end()
+			{
+				/* FIXME: Need to implement a way to keep track of the
+				 * nullptr node after the last node. This is needed for the
+				 * reverse iterator to work properly.
+				 * For now, we return an iterator pointing to nullptr (leaf node)
+				 */
+				return iterator(nullptr);
 			}
 
 	};

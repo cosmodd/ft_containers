@@ -117,24 +117,22 @@ Containers:
 			☐ template <class InputIterator> ft::map::map(InputIterator first, InputIterator last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
 			☐ ft::map::map(const ft::map& other);
 		Member types:
-			☐ Key	key_type;
-			☐ T	mapped_type;
-			☐ std::pair<const Key, T>	value_type;
-			☐ Compare	key_compare;
-			☐ Allocator	allocator_type;
-			☐ T&	mapped_type;
-			☐ const T&	mapped_type;
-			☐ std::pair<const Key, T>&	reference;
-			☐ const std::pair<const Key, T>&	const_reference;
-			☐ Allocator::pointer	pointer;
-			☐ Allocator::const_pointer	const_pointer;
-			☐ std::ptrdiff_t	difference_type;
-			☐ std::size_t	size_type;
+			✔ Key								key_type; @done(23-03-03 10:19)
+			✔ T									mapped_type; @done(23-03-03 10:20)
+			✔ std::pair<const Key, T>			value_type; @done(23-03-03 10:20)
+			✔ std::size_t						size_type; @done(23-03-03 10:20)
+			✔ std::ptrdiff_t					difference_type; @done(23-03-03 10:20)
+			✔ Compare							key_compare; @done(23-03-03 10:20)
+			✔ Allocator							allocator_type; @done(23-03-03 10:20)
+			✔ std::pair<const Key, T>&			reference; @done(23-03-03 10:20)
+			✔ const std::pair<const Key, T>&	const_reference; @done(23-03-03 10:20)
+			✔ Allocator::pointer				pointer; @done(23-03-03 10:20)
+			✔ Allocator::const_pointer			const_pointer; @done(23-03-03 10:20)
 		Iterators:
-			☐ ft::map::iterator;
-			☐ ft::map::const_iterator;
-			☐ ft::map::reverse_iterator;
-			☐ ft::map::const_reverse_iterator;
+			✔ ft::map::iterator; @done(23-03-03 14:07)
+			✔ ft::map::const_iterator; @done(23-03-03 14:07)
+			✔ ft::map::reverse_iterator; @done(23-03-03 14:07)
+			✔ ft::map::const_reverse_iterator; @done(23-03-03 14:07)
 		Member functions:
 			☐ ft::map::operator=(const ft::map& other);
 			☐ ft::map::get_allocator(void) const;
