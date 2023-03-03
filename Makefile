@@ -70,6 +70,10 @@ noflags:
 	@echo '$(INFO) Compiling without flags ! $(NOCOL)'
 	@make -sC ./ CXXFLAGS="-std=c++98" re
 
+debug-nf:
+	@echo '$(INFO) Debugging project without flags ! $(NOCOL)'
+	@make -sC ./ CXXFLAGS="-g -fsanitize=address -std=c++98" re
+
 clean:
 	@rm -f $(OBJS)
 	@echo '$(DEL) Removed $(words $(OBJS)) object files $(NOCOL)'
@@ -80,4 +84,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re run
+.PHONY: all clean fclean re run debug noflags debug-nf
