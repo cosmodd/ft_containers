@@ -1,8 +1,7 @@
 #include "stack.hpp"
 #include "vector.hpp"
+#include "map.hpp"
 #include "utility.hpp"
-#include "RBTree.hpp"
-#include "RBTree_iterator.hpp"
 
 #include <iostream>
 #include <iomanip>
@@ -177,63 +176,47 @@ static void printDiff(std::vector<int> const &v1, std::vector<int> const &v2)
 	std::cout << s2 << std::endl;
 }
 
+template <class Iterator>
+void	printIterator(std::string name, Iterator it, Iterator ite)
+{
+	std::cout << name << " ";
+	for (Iterator iter = it; iter != ite; iter++)
+	{
+		if (iter != it)
+			std::cout << ", ";
+		std::cout << *iter;
+	}
+	std::cout << std::endl;
+}
+
+template <class T>
+std::list<T>	generateList(T min, T max)
+{
+	std::list<T>	list;
+
+	for (T i = min; i < max; i++)
+		list.push_back(i);
+
+	return (list);
+}
+
 int main(void)
 {
-	typedef ft::RBTree<int>	Container;
+	typedef ft::map<float, std::list<float> >	map_type;
 
 	// --- Containers --- //
-	Container								tree;
+	map_type					map;
+	std::list<std::list<float> >	list_list;
 
-	// --- Nodes --- //
-	Container::node_pointer					leftMost;
-	Container::node_pointer					rightMost;
-
-	// --- Iterators --- //
-	ft::RBTree_iterator<Container>			it;
-	const ft::RBTree_iterator<Container>	ite; // Iterator pointing to NULL
-
-	ft::reverse_iterator<ft::RBTree_iterator<Container> > rit;
-	ft::reverse_iterator<ft::RBTree_iterator<Container> > rite;
-
-	// --- Tests --- //
-	tree.insert(3);
-	tree.insert(2);
-	tree.insert(1);
-
-	leftMost = tree.getRoot();
-	while (leftMost->left)
-		leftMost = leftMost->left;
-
-	rightMost = tree.getRoot();
-	while (rightMost->right)
-		rightMost = rightMost->right;
-
-	// --- In-order traversal --- //
-	std::cout << "\e[100;37m In-order traversal \e[0m" << std::endl;
-	it = leftMost;
-	while (it != ite)
+	// --- Fill containers --- //
+	for (int i = 0; i < 10; i++)
 	{
-		std::cout << *it << std::endl;
-		++it;
+		std::list<float>	list = generateList<float>(0, 10);
+		list_list.push_back(list);
 	}
 
-	// --- Reverse in-order traversal --- //
-	std::cout << "\e[100;37m Reverse in-order traversal \e[0m" << std::endl;
-	it = rightMost;
-	while (it != ite)
-	{
-		std::cout << *it << std::endl;
-		--it;
-	}
-
-	// --- Reverse iterator --- //
-	std::cout << "\e[100;37m Reverse iterator \e[0m" << std::endl;
-	rit = ft::reverse_iterator<ft::RBTree_iterator<Container> >(rightMost);
-	while (rit != rite)
-	{
-		std::cout << *rit << std::endl;
-		++rit;
-	}
+	// --- Insertion --- //
+	std::cout << "Is empty: " << emojiBoolean(map.empty(), true) << std::endl;
 
 	return (EXIT_SUCCESS);
 }

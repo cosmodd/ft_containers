@@ -72,7 +72,7 @@ noflags:
 
 debug-nf:
 	@echo '$(INFO) Debugging project without flags ! $(NOCOL)'
-	@make -sC ./ CXXFLAGS="-g -fsanitize=address -std=c++98" re
+	@make -sC ./ CXXFLAGS="-std=c++98 -g -fsanitize=address" re
 
 clean:
 	@rm -f $(OBJS)
