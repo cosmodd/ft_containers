@@ -77,25 +77,9 @@ namespace ft
 			// -------------------------------------------------------------- //
 			//  Private member functions                                      //
 			// -------------------------------------------------------------- //
-			value_type*	_findPair(const key_type& key)
+			value_type*	_findPair(const key_type& key) const
 			{
 				typename tree_type::node_pointer	node = _tree.getRoot();
-
-				while (node)
-				{
-					if (key == node->data.first)
-						return &node->data;
-					else if (_comp(key, node->data.first))
-						node = node->left;
-					else
-						node = node->right;
-				}
-				return nullptr;
-			}
-
-			const value_type*	_findPair(const key_type& key) const
-			{
-				typename tree_type::const_node_pointer	node = _tree.getRoot();
 
 				while (node)
 				{
@@ -212,16 +196,7 @@ namespace ft
 				return pair->second;
 			}
 
-			const mapped_type& operator[](const key_type& key) const
-			{
-				value_type*	pair = _findPair(key);
-
-				if (pair == nullptr)
-					pair = &(*_tree.insert(ft::make_pair(key, mapped_type())).first);
-				return pair->second;
-			}
-
-			mapped_type&	at(const key_type& key)
+			mapped_type& at(const key_type& key)
 			{
 				value_type*	pair = _findPair(key);
 
@@ -232,7 +207,7 @@ namespace ft
 
 			const mapped_type&	at(const key_type& key) const
 			{
-				value_type*	pair = _findPair(key);
+				const value_type*	pair = _findPair(key);
 
 				if (pair == nullptr)
 					throw std::out_of_range("map::at");

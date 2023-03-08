@@ -233,14 +233,13 @@ int main(void)
 	std::cout << "\e[100;37m Constness test \e[0m" << std::endl;
 	const map_type constMap(map);
 
-	std::cout << "constMap[\"Hello\"] = " << constMap["Hello"] << std::endl;
-	std::cout << "constMap[\"World\"] = " << constMap["World"] << std::endl;
-	std::cout << "constMap[\"!\"] = " << constMap["!"] << std::endl;
-	std::cout << std::endl;
-	std::cout << "constMap.at(\"Hello\") = " << constMap.at("Hello") << std::endl;
-	std::cout << "constMap.at(\"World\") = " << constMap.at("World") << std::endl;
-	std::cout << "constMap.at(\"!\") = " << constMap.at("!") << std::endl;
-	std::cout << std::endl;
+	map_type::const_iterator it = constMap.begin();
+	map_type::const_iterator ite = constMap.end();
+
+	it->second = 42;
+
+	for (; it != ite; it++)
+		std::cout << it->first << " -> " << it->second << std::endl;
 
 	// --- Capacity --- //
 	std::cout << "\e[100;37m Capacity \e[0m" << std::endl;

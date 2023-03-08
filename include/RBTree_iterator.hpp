@@ -8,18 +8,21 @@ namespace ft
 	template <class Tree>
 	class RBTree_iterator: public std::iterator<std::bidirectional_iterator_tag, typename Tree::value_type>
 	{
-		public:
+		private:
 			// -------------------------------------------------------------- //
 			//  Member types                                                  //
 			// -------------------------------------------------------------- //
 			typedef typename std::iterator<std::bidirectional_iterator_tag, typename Tree::value_type>	iterator_type;
-			typedef typename iterator_type::difference_type												difference_type;
-			typedef typename iterator_type::value_type													value_type;
-			typedef typename iterator_type::pointer														pointer;
-			typedef typename iterator_type::reference													reference;
-			typedef typename iterator_type::iterator_category											iterator_category;
 
-			typedef typename Tree::node_pointer															node_pointer;
+			typedef typename Tree::node_pointer					node_pointer;
+			typedef typename Tree::const_node_pointer			const_node_pointer;
+
+		public:
+			typedef typename iterator_type::difference_type		difference_type;
+			typedef typename iterator_type::value_type			value_type;
+			typedef typename iterator_type::pointer				pointer;
+			typedef typename iterator_type::reference			reference;
+			typedef typename iterator_type::iterator_category	iterator_category;
 
 		private:
 			node_pointer	_ptr;
@@ -28,15 +31,17 @@ namespace ft
 			// -------------------------------------------------------------- //
 			//  Constructors/Destructors + assignment                         //
 			// -------------------------------------------------------------- //
-			RBTree_iterator(): _ptr(NULL) {}
+			RBTree_iterator(): _ptr(nullptr) {}
 
 			RBTree_iterator(node_pointer node): _ptr(node) {}
 
-			RBTree_iterator(RBTree_iterator const &other): _ptr(other._ptr) {}
+			RBTree_iterator(const_node_pointer node): _ptr(const_cast<node_pointer>(node)) {}
+
+			RBTree_iterator(const RBTree_iterator &other): _ptr(other._ptr) {}
 
 			~RBTree_iterator() {}
 
-			RBTree_iterator	&operator=(RBTree_iterator const &other)
+			RBTree_iterator	&operator=(const RBTree_iterator &other)
 			{
 				_ptr = other._ptr;
 				return *this;
@@ -47,13 +52,23 @@ namespace ft
 			// -------------------------------------------------------------- //
 			// --- Accessors --- //
 			// *it
-			reference	operator*() const
+			reference	operator*()
+			{
+				return _ptr->data;
+			}
+
+			const reference	operator*() const
 			{
 				return _ptr->data;
 			}
 
 			// it->member
-			pointer		operator->() const
+			pointer		operator->()
+			{
+				return &(_ptr->data);
+			}
+
+			const pointer	operator->() const
 			{
 				return &(_ptr->data);
 			}

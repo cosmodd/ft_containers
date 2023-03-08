@@ -588,12 +588,7 @@ namespace ft
 					remove(iterator(node));
 			}
 
-			node_pointer getRoot()
-			{
-				return _root;
-			}
-
-			const_node_pointer getRoot() const
+			node_pointer getRoot() const
 			{
 				return _root;
 			}
@@ -620,10 +615,7 @@ namespace ft
 			{
 				node_pointer	current = _root;
 
-				if (current == nullptr)
-					return iterator(nullptr);
-
-				while (current->left != nullptr)
+				while (current != nullptr && current->left != nullptr)
 					current = current->left;
 
 				return iterator(current);
@@ -638,10 +630,7 @@ namespace ft
 			{
 				node_pointer	current = _root;
 
-				if (current == nullptr)
-					return const_iterator(nullptr);
-
-				while (current->left != nullptr)
+				while (current != nullptr && current->left != nullptr)
 					current = current->left;
 
 				return const_iterator(current);
