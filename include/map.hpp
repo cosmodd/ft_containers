@@ -20,20 +20,46 @@ namespace ft
 			// -------------------------------------------------------------- //
 			//  Member types                                                  //
 			// -------------------------------------------------------------- //
-			typedef Key													key_type;
-			typedef T													mapped_type;
-			typedef ft::pair<const Key, T>								value_type;
-			typedef std::size_t											size_type;
-			typedef std::ptrdiff_t										difference_type;
-			typedef Compare												key_compare;
-			typedef Allocator											allocator_type;
-			typedef ft::RBTree<value_type, key_compare, allocator_type>	tree_type;
+			typedef Key											key_type;
+			typedef T											mapped_type;
+			typedef ft::pair<const Key, T>						value_type;
+			typedef std::size_t									size_type;
+			typedef std::ptrdiff_t								difference_type;
+			typedef Compare										key_compare;
+			typedef Allocator									allocator_type;
 
-			typedef value_type&							reference;
-			typedef const value_type&					const_reference;
-			typedef typename Allocator::pointer			pointer;
-			typedef typename Allocator::const_pointer	const_pointer;
+			typedef typename allocator_type::reference			reference;
+			typedef typename allocator_type::const_reference	const_reference;
+			typedef typename allocator_type::pointer			pointer;
+			typedef typename allocator_type::const_pointer		const_pointer;
 
+			// --- Value compare --- //
+			struct value_compare
+			{
+				// Needed for accessing private members of map
+				friend class map;
+
+				protected:
+					Compare	_comp;
+
+				public:
+					typedef bool result_type;
+					typedef value_type first_argument_type;
+					typedef value_type second_argument_type;
+
+					value_compare(Compare c): _comp(c) {}
+					value_compare(const value_compare& x): _comp(x._comp) {}
+
+					bool operator()(const value_type& x, const value_type& y) const
+					{
+						return _comp(x.first, y.first);
+					}
+			};
+
+		private:
+			typedef ft::RBTree<value_type, value_compare, allocator_type>	tree_type;
+
+		public:
 			// --- Iterator types --- //
 			typedef typename tree_type::iterator				iterator;
 			typedef typename tree_type::const_iterator			const_iterator;
@@ -53,7 +79,23 @@ namespace ft
 			// -------------------------------------------------------------- //
 			value_type*	_findPair(const key_type& key)
 			{
-				tree_type::node_pointer	node = _tree.getRoot();
+				typename tree_type::node_pointer	node = _tree.getRoot();
+
+				while (node)
+				{
+					if (key == node->data.first)
+						return &node->data;
+					else if (_comp(key, node->data.first))
+						node = node->left;
+					else
+						node = node->right;
+				}
+				return nullptr;
+			}
+
+			const value_type*	_findPair(const key_type& key) const
+			{
+				typename tree_type::const_node_pointer	node = _tree.getRoot();
 
 				while (node)
 				{
@@ -161,7 +203,34 @@ namespace ft
 			//  Member functions                                              //
 			// -------------------------------------------------------------- //
 			// --- Accessors --- //
-			mapped_type&	at(const key_type& key) const
+			mapped_type& operator[](const key_type& key)
+			{
+				value_type*	pair = _findPair(key);
+
+				if (pair == nullptr)
+					pair = &(*_tree.insert(ft::make_pair(key, mapped_type())).first);
+				return pair->second;
+			}
+
+			const mapped_type& operator[](const key_type& key) const
+			{
+				value_type*	pair = _findPair(key);
+
+				if (pair == nullptr)
+					pair = &(*_tree.insert(ft::make_pair(key, mapped_type())).first);
+				return pair->second;
+			}
+
+			mapped_type&	at(const key_type& key)
+			{
+				value_type*	pair = _findPair(key);
+
+				if (pair == nullptr)
+					throw std::out_of_range("map::at");
+				return pair->second;
+			}
+
+			const mapped_type&	at(const key_type& key) const
 			{
 				value_type*	pair = _findPair(key);
 
@@ -194,7 +263,7 @@ namespace ft
 
 			ft::pair<iterator, bool> insert(const value_type& val)
 			{
-				_tree.insert
+				return _tree.insert(val);
 			}
 
 	};

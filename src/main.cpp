@@ -202,21 +202,50 @@ std::list<T>	generateList(T min, T max)
 
 int main(void)
 {
-	typedef ft::map<float, std::list<float> >	map_type;
+	typedef ft::map<std::string, int>	map_type;
 
 	// --- Containers --- //
-	map_type					map;
-	std::list<std::list<float> >	list_list;
-
-	// --- Fill containers --- //
-	for (int i = 0; i < 10; i++)
-	{
-		std::list<float>	list = generateList<float>(0, 10);
-		list_list.push_back(list);
-	}
+	map_type		map;
 
 	// --- Insertion --- //
-	std::cout << "Is empty: " << emojiBoolean(map.empty(), true) << std::endl;
+	map.insert(ft::make_pair("Hello", 42));
+	map.insert(ft::make_pair("World", 21));
+	map.insert(ft::make_pair("!", 0));
+
+	// --- Iterators --- //
+	std::cout << "\e[100;37m Iterators \e[0m" << std::endl;
+	for (map_type::iterator it = map.begin(); it != map.end(); it++)
+		std::cout << it->first << " -> " << it->second << std::endl;
+	std::cout << std::endl;
+
+	// --- Accessors --- //
+	std::cout << "\e[100;37m Accessors \e[0m" << std::endl;
+	std::cout << "map[\"Hello\"] = " << map["Hello"] << std::endl;
+	std::cout << "map[\"World\"] = " << map["World"] << std::endl;
+	std::cout << "map[\"!\"] = " << map["!"] << std::endl;
+	std::cout << std::endl;
+	std::cout << "map.at(\"Hello\") = " << map.at("Hello") << std::endl;
+	std::cout << "map.at(\"World\") = " << map.at("World") << std::endl;
+	std::cout << "map.at(\"!\") = " << map.at("!") << std::endl;
+	std::cout << std::endl;
+
+	// --- Constness test --- //
+	std::cout << "\e[100;37m Constness test \e[0m" << std::endl;
+	const map_type constMap(map);
+
+	std::cout << "constMap[\"Hello\"] = " << constMap["Hello"] << std::endl;
+	std::cout << "constMap[\"World\"] = " << constMap["World"] << std::endl;
+	std::cout << "constMap[\"!\"] = " << constMap["!"] << std::endl;
+	std::cout << std::endl;
+	std::cout << "constMap.at(\"Hello\") = " << constMap.at("Hello") << std::endl;
+	std::cout << "constMap.at(\"World\") = " << constMap.at("World") << std::endl;
+	std::cout << "constMap.at(\"!\") = " << constMap.at("!") << std::endl;
+	std::cout << std::endl;
+
+	// --- Capacity --- //
+	std::cout << "\e[100;37m Capacity \e[0m" << std::endl;
+	std::cout << "Size: " << map.size() << std::endl;
+	std::cout << "Empty: " << emojiBoolean(map.empty(), true) << std::endl;
 
 	return (EXIT_SUCCESS);
 }

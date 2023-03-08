@@ -9,8 +9,8 @@ namespace ft
 		typedef T1	first_type;
 		typedef T2	second_type;
 
-		T1	first;
-		T2	second;
+		first_type	first;
+		second_type	second;
 
 		// ------------------------------------------------------------------ //
 		//  Constructors                                                      //
@@ -19,16 +19,16 @@ namespace ft
 		pair(): first(), second() {}
 
 		// --- Copy constructor --- //
-		pair(const T1& x, const T2& y): first(x), second(y) {}
+		pair(const first_type& x, const second_type& y): first(x), second(y) {}
 
 		template <class U, class V>
 		pair(const pair<U, V>& pr): first(pr.first), second(pr.second) {}
 
 		// --- Copy assignment operator --- //
-		pair&	operator=(const pair& pr)
+		pair&	operator=(const pair& other)
 		{
-			first = pr.first;
-			second = pr.second;
+			first = other.first;
+			second = other.second;
 			return *this;
 		}
 	};

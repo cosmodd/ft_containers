@@ -444,9 +444,16 @@ namespace ft
 				_end.color = Node::BLACK;
 			}
 
-			RBTree(const RBTree &other)
+			RBTree(const RBTree &other):
+				_root(nullptr),
+				_end(value_type()),
+				_comparator(other._comparator),
+				_allocator(other._allocator),
+				_nodeAllocator(std::allocator<Node>()),
+				_size(0)
 			{
 				copyTree(other.getRoot(), other.getEnd());
+				updateEndNode();
 			}
 
 			RBTree &operator=(const RBTree &other)
@@ -455,6 +462,7 @@ namespace ft
 				{
 					deleteTree(_root);
 					copyTree(other.getRoot(), other.getEnd());
+					updateEndNode();
 				}
 				return *this;
 			}
@@ -504,6 +512,7 @@ namespace ft
 				{
 					_root = node;
 					node->color = Node::BLACK;
+					++_size;
 					return ft::make_pair(iterator(node), true);
 				}
 
